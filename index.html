@@ -13,7 +13,6 @@
     
     <style>
         :root {
-            --brand-blue: #2C82C9; 
             --navy: #001B3D;
             --gold: #C5A059;
             --white: #FFFFFF;
@@ -58,10 +57,7 @@
             transition: var(--transition);
         }
         
-        nav:not(.scrolled) .nav-links a:not(.track-nav-btn) { color: white; }
-        nav:not(.scrolled) .menu-toggle { color: white; }
-        
-        .nav-links a:hover { color: var(--gold) !important; }
+        .nav-links a:hover { color: var(--gold); }
         
         .track-nav-btn {
             background: var(--gold); color: var(--white) !important;
@@ -75,28 +71,25 @@
         /* --- Hero Section --- */
         .hero {
             height: 100vh; width: 100%; display: flex; align-items: center;
-            padding: 0 8%; 
-            background: linear-gradient(135deg, var(--brand-blue) 0%, #1a5a8e 100%);
+            padding: 0 8%; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             position: relative; overflow: hidden;
-            color: white;
         }
 
-        /* Watermark Stylized Logo T-REX */
-        .hero-watermark {
+        .hero::after {
+            content: "T-REX";
             position: absolute;
-            right: -10%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 75vw;
-            opacity: 0.1;
+            right: -5%;
+            font-family: 'Playfair Display', serif;
+            font-size: 25vw;
+            font-weight: 900;
+            color: rgba(0, 27, 61, 0.03);
             pointer-events: none;
             z-index: 1;
+            white-space: nowrap;
         }
 
         .hero-content { max-width: 800px; z-index: 2; position: relative; }
-        .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 25px; color: white; }
-        .hero h1 span { color: var(--gold) !important; }
-        .hero p { font-size: 1.2rem; max-width: 600px; color: rgba(255,255,255,0.9); }
+        .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 25px; }
 
         /* --- Stats Section --- */
         .stats-bar {
@@ -120,7 +113,7 @@
             transition: var(--transition); border-bottom: 3px solid transparent;
         }
         .service-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .service-card i { font-size: 45px; color: var(--brand-blue); margin-bottom: 20px; }
+        .service-card i { font-size: 45px; color: var(--gold); margin-bottom: 20px; }
 
         /* --- Floating WA --- */
         .wa-float {
@@ -134,14 +127,15 @@
 
         /* --- Footer --- */
         footer { background: #000D1E; color: var(--white); padding: 100px 8% 50px; width: 100%; }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 50px; }
         .footer-links h4 { color: var(--gold); margin-bottom: 25px; text-transform: uppercase; font-size: 14px; }
-        .footer-links p, .footer-links a { font-size: 14px; opacity: 0.7; margin-bottom: 12px; color: white; text-decoration: none; display: block; }
+        .footer-links p { font-size: 14px; opacity: 0.7; margin-bottom: 12px; line-height: 1.6; }
         .footer-links i { width: 25px; color: var(--gold); }
+        .footer-links a { color: inherit; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
 
         @media (max-width: 992px) {
             nav { padding: 15px 5%; background: var(--white); }
-            nav:not(.scrolled) .menu-toggle { color: var(--navy); }
             .menu-toggle { display: block; }
             .nav-links {
                 position: absolute; top: 100%; left: 0; width: 100%;
@@ -149,13 +143,17 @@
                 padding: 30px 0; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
             .nav-links.active { display: flex; }
-            .nav-links a { margin: 15px 0; margin-left: 0; width: 100%; text-align: center; color: var(--navy) !important; }
+            .nav-links a { margin: 15px 0; margin-left: 0; width: 100%; text-align: center; }
             
-            .track-nav-btn { width: 80% !important; margin: 15px auto !important; justify-content: center; }
+            .track-nav-btn { 
+                width: 80% !important; 
+                margin: 15px auto !important; 
+                justify-content: center; 
+            }
 
             .about-grid, .service-grid, .footer-grid, .stats-bar { grid-template-columns: 1fr; gap: 40px; }
             .hero { text-align: center; justify-content: center; padding-top: 80px; }
-            .hero-watermark { width: 120vw; right: -15%; top: 60%; opacity: 0.08; }
+            .hero::after { font-size: 40vw; right: -20%; top: 40%; }
         }
     </style>
 </head>
@@ -177,16 +175,10 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-watermark">
-            <svg viewBox="0 0 1200 300" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <g transform="skewX(-12)"> <path d="M50 50H280V95H195V250H135V95H50V50Z"/> <path d="M295 50H325V110H295V50Z"/> <path d="M350 50H520C570 50 600 80 600 120C600 145 585 170 550 185L620 250H550L490 190H420V250H360V50ZM420 95V145H510C530 145 540 135 540 120C540 105 530 95 510 95H420Z"/> <path d="M630 50H800V90H700V130H780V170H700V210H810V250H630V50Z"/> <path d="M830 50H895L950 130L1005 50H1070L985 150L1075 250H1010L950 170L890 250H825L915 150L830 50Z"/> </g>
-            </svg>
-        </div>
-
         <div class="hero-content" data-aos="fade-right">
-            <span class="subtitle" style="color: #fff; opacity: 0.8;">Premier Logistics & Supply Chain</span>
-            <h1>We care <br><span>Your delivery.</span></h1>
-            <p>Memberikan solusi logistik terintegrasi dengan kecepatan kargo udara, ketangguhan jalur laut, dan keandalan darat.</p>
+            <span class="subtitle">Premier Logistics & Supply Chain</span>
+            <h1>We care <br><span style="color: var(--gold);">Your delivery.</span></h1>
+            <p style="font-size: 1.2rem; max-width: 600px; color: #555;">Memberikan solusi logistik terintegrasi dengan kecepatan kargo udara, ketangguhan jalur laut, dan keandalan darat.</p>
         </div>
     </section>
 
@@ -246,8 +238,8 @@
                 <h3 class="serif" style="color: var(--gold); margin-bottom: 20px;">T’REX LOGISTICS</h3>
                 <p style="opacity: 0.6;">Member of PT Indotrans Express Logistics.</p>
                 <div style="margin-top: 20px;">
-                    <a href="#" style="display:inline; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="#" style="display:inline; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -265,13 +257,15 @@
             <div class="footer-links">
                 <h4>Contact Us</h4>
                 <p><i class="fab fa-whatsapp"></i> +62 812 6000 3870</p>
-                <p><i class="fas fa-phone-alt"></i> 021 - 5099 6969 (Ext 1318)</p>
+                <p><i class="fas fa-phone-alt"></i> 021 - 5099 6969 Ext 1318</p>
                 <p><i class="fas fa-envelope"></i> info@indotransexpress.com</p>
-                <p style="opacity: 0.8; font-size: 13px;">
+                <p style="margin-top: 15px;">
                     <i class="fas fa-map-marker-alt"></i> 
-                    Gedung Wirausaha Lantai 1 Unit 104,<br>
-                    Jalan HR Rasuna Said Kav. C-5,<br>
-                    Kec. Setiabudi - Jakarta Selatan,<br>DKI Jakarta 12920
+                    Gedung Wirausaha Lantai 1 Unit 104<br>
+                    <span style="padding-left: 28px; display: inline-block; opacity: 0.8;">
+                        Jalan HR Rasuna Said Kav. C-5<br>
+                        Setiabudi - Jakarta Selatan, 12920
+                    </span>
                 </p>
             </div>
         </div>
@@ -282,6 +276,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Inisialisasi AOS
         AOS.init({ duration: 1000, once: true });
 
         const nav = document.getElementById('navbar');
@@ -289,25 +284,26 @@
         const navList = document.getElementById('nav-list');
         const navLinks = document.querySelectorAll('.nav-links a');
 
+        // Scroll effect untuk navbar
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
 
+        // Toggle menu buka/tutup
         menuToggle.addEventListener('click', () => {
             navList.classList.toggle('active');
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
         });
 
+        // Script untuk menghilangkan menu dropdown saat link diklik (khusus mobile)
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navList.classList.contains('active')) {
                     navList.classList.remove('active');
-                    const icon = menuToggle.querySelector('i');
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
                 }
             });
         });

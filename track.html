@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* Mencegah overflow secara global */
         * {
             box-sizing: border-box;
         }
@@ -17,7 +16,9 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            overflow-x: hidden; /* Kunci geser horizontal */
+            height: 100%; /* Fallback */
+            height: 100dvh; /* Tinggi pas layar HP */
+            overflow: hidden; /* Kunci scroll utama */
             background: #001B3D;
             color: white;
             font-family: 'Jost', sans-serif;
@@ -25,24 +26,18 @@
 
         body {
             display: flex;
-            flex-direction: column; /* Biar footer bisa di bawah */
-            min-height: 100vh;
+            flex-direction: column;
         }
 
-        .main-content {
-            flex: 1; /* Mengisi ruang sisa agar footer tetap di bawah */
+        /* Area utama yang bisa scroll JIKA konten meluap */
+        .main-wrapper {
+            flex: 1;
+            overflow-y: auto; /* Scroll muncul otomatis jika hasil track panjang */
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
             position: relative;
-        }
-
-        .track-container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            padding: 20px;
+            -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
         }
 
         .back-home {
@@ -54,6 +49,14 @@
             font-weight: 600;
             font-size: 0.9rem;
             z-index: 10;
+        }
+
+        .track-container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 60px 20px 40px 20px; /* Padding atas lebih besar untuk back button */
+            margin: auto; /* Memastikan konten di tengah secara vertikal saat kosong */
         }
 
         h1 {
@@ -69,6 +72,7 @@
             display: flex;
             margin-top: 30px;
             width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .search-box input {
@@ -78,7 +82,7 @@
             outline: none;
             font-size: 16px;
             color: #333;
-            min-width: 0; /* Penting agar input tidak merusak layout flex di HP */
+            min-width: 0;
         }
 
         .search-box button {
@@ -89,44 +93,37 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .search-box button:hover {
-            background: #a38448;
         }
 
         #result {
             margin-top: 30px;
             color: #C5A059;
             font-size: 1.1rem;
-            min-height: 50px;
+            line-height: 1.6;
         }
 
-        /* Footer Style */
         footer {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.6;
-            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            background: #001B3D;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            flex-shrink: 0; /* Pastikan footer tidak gepeng */
         }
 
-        /* Responsif untuk layar kecil */
         @media (max-width: 480px) {
             h1 { font-size: 1.8rem; }
-            .back-home { top: 15px; left: 15px; }
-            .search-box button { padding: 0 15px; font-size: 14px; }
+            .track-container { padding-top: 80px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-content">
+    <div class="main-wrapper">
         <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> BACK</a>
         
         <div class="track-container">
-            <!-- Gunakan margin auto agar gambar tetap di tengah -->
             <img src="trex.jpeg" alt="Logo" style="height: 60px; margin-bottom: 20px; border-radius: 8px;">
             <h1>Track Shipment</h1>
             <p style="opacity: 0.7;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
@@ -156,13 +153,22 @@
 
             res.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> Searching...";
             
-            // Simulasi API call
             setTimeout(() => {
-                res.innerHTML = "Status <b>" + input + "</b>: <br><span style='color:white; opacity:0.9;'>Paket sedang diproses di HUB Jakarta.</span>";
-            }, 1500);
+                // Menambah konten panjang untuk tes scroll
+                res.innerHTML = `
+                    <div style="background: rgba(197, 160, 89, 0.1); padding: 15px; border-radius: 10px; border: 1px solid #C5A059;">
+                        <span style="color: #C5A059; font-weight: bold;">Status ${input}</span><br>
+                        <span style="color: white; font-size: 0.95rem;">Paket sedang diproses di HUB Jakarta (Sorting Facility).</span>
+                        <hr style="border: 0.5px solid rgba(197,160,89,0.2); margin: 10px 0;">
+                        <small style="color: #aaa; display: block; text-align: left;">
+                            • 07 Mei 2026 22:30 - Paket tiba di HUB Jakarta<br>
+                            • 07 Mei 2026 18:15 - Paket diberangkatkan dari Bandung<br>
+                            • 07 Mei 2026 10:00 - Paket diterima oleh kurir
+                        </small>
+                    </div>`;
+            }, 1000);
         }
 
-        // Jalankan fungsi saat menekan tombol Enter
         document.getElementById("resiInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 track();

@@ -68,16 +68,14 @@
 
         .menu-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section (BALIK KE AWAL) --- */
         .hero {
             height: 100vh; width: 100%; display: flex; align-items: center;
-            padding: 0 8%; position: relative;
-            background: linear-gradient(rgba(0,27,61,0.05), rgba(0,27,61,0.05)), 
-                        url('https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2075&auto=format&fit=crop');
-            background-size: cover; background-position: center;
+            padding: 0 8%; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            position: relative;
         }
         .hero-content { max-width: 800px; z-index: 2; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 25px; color: var(--navy); }
+        .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 25px; }
 
         /* --- Stats Section --- */
         .stats-bar {
@@ -132,7 +130,7 @@
             .nav-links a { margin: 15px 0; margin-left: 0; }
             .track-nav-btn { width: 80%; }
             .about-grid, .service-grid, .footer-grid, .stats-bar { grid-template-columns: 1fr; gap: 40px; }
-            .hero { text-align: center; justify-content: center; }
+            .hero { text-align: center; justify-content: center; padding-top: 80px; }
         }
     </style>
 </head>
@@ -157,7 +155,7 @@
         <div class="hero-content" data-aos="fade-right">
             <span class="subtitle">Premier Logistics & Supply Chain</span>
             <h1>We care <br><span style="color: var(--gold);">Your delivery.</span></h1>
-            <p style="font-size: 1.2rem; max-width: 600px;">Solusi pengiriman kargo profesional yang menghubungkan bisnis Anda ke seluruh pelosok nusantara dengan aman dan tepat waktu.</p>
+            <p style="font-size: 1.2rem; max-width: 600px; color: #555;">Memberikan solusi logistik terintegrasi dengan kecepatan kargo udara, ketangguhan jalur laut, dan keandalan darat.</p>
         </div>
     </section>
 
@@ -165,7 +163,7 @@
         <div class="stat-item" data-aos="fade-up"><h2>25+</h2><p>Branch Offices</p></div>
         <div class="stat-item" data-aos="fade-up" data-aos-delay="100"><h2>150+</h2><p>Fleet Units</p></div>
         <div class="stat-item" data-aos="fade-up" data-aos-delay="200"><h2>500+</h2><p>Daily Shipments</p></div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="300"><h2>100%</h2><p>Delivery Success</p></div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300"><h2>100%</h2><p>Safe Delivery</p></div>
     </div>
 
     <section id="about" class="section">
@@ -173,7 +171,7 @@
             <div class="about-text" data-aos="fade-up">
                 <span class="subtitle">Our Identity</span>
                 <h2>Infrastruktur Terkemuka, Layanan Terpercaya</h2>
-                <p>T’REX Logistics (PT Indotrans Express Logistics) adalah mitra strategis dalam manajemen rantai pasok. Kami memahami bahwa setiap paket memiliki nilai penting, itulah mengapa kami mengedepankan akurasi data dan keamanan fisik barang.</p>
+                <p>T’REX Logistics menghadirkan pengalaman pengiriman profesional dengan jaringan luas di seluruh Indonesia. Kami memahami bahwa setiap paket memiliki nilai penting, itulah mengapa kami mengedepankan akurasi data dan keamanan fisik barang.</p>
                 <p>Dengan dukungan sistem tracking real-time dan tim operasional yang berpengalaman, kami memastikan efisiensi biaya logistik untuk pertumbuhan bisnis Anda.</p>
             </div>
             <div class="image-box" data-aos="fade-left">
@@ -186,27 +184,28 @@
         <div style="text-align: center; max-width: 700px; margin: 0 auto;" data-aos="fade-up">
             <span class="subtitle">Our Solutions</span>
             <h2>Integrated Logistics Network</h2>
-            <p>Kami menyediakan berbagai jalur distribusi untuk memastikan barang sampai ke tujuan dengan metode yang paling efektif.</p>
+            <p>Saluran distribusi yang dirancang untuk memastikan barang sampai ke tujuan dengan metode yang paling efektif.</p>
         </div>
         <div class="service-grid">
             <div class="service-card" data-aos="zoom-in">
                 <i class="fa-solid fa-plane"></i>
                 <h3 class="serif">Air Freight</h3>
-                <p>Layanan kargo udara prioritas dengan jadwal penerbangan harian untuk menjamin kecepatan waktu tiba (Next Day Delivery).</p>
+                <p>Kargo udara cepat untuk kiriman mendesak dengan jaminan waktu tiba yang akurat.</p>
             </div>
             <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
                 <i class="fa-solid fa-truck-moving"></i>
                 <h3 class="serif">Land Transport</h3>
-                <p>Distribusi darat menggunakan armada blindvan, CDE, hingga Fuso dengan sistem keamanan GPS terintegrasi.</p>
+                <p>Transportasi darat andal pintu ke pintu dengan armada yang selalu siap sedia.</p>
             </div>
             <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
                 <i class="fa-solid fa-ship"></i>
                 <h3 class="serif">Sea Cargo</h3>
-                <p>Layanan FCL (Full Container Load) dan LCL untuk pengiriman antar pulau dengan tarif yang sangat kompetitif.</p>
+                <p>Opsi ekonomis untuk volume besar antar pulau dengan manajemen kontainer yang profesional.</p>
             </div>
         </div>
     </section>
 
+    <!-- Floating WhatsApp -->
     <a href="https://wa.me/6281260003870" class="wa-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
@@ -215,11 +214,10 @@
         <div class="footer-grid">
             <div class="footer-links">
                 <h3 class="serif" style="color: var(--gold); margin-bottom: 20px;">T’REX LOGISTICS</h3>
-                <p>Solusi logistik modern yang berkomitmen pada kecepatan, keamanan, dan transparansi pengiriman.</p>
+                <p style="opacity: 0.6;">Member of PT Indotrans Express Logistics.</p>
                 <div style="margin-top: 20px;">
                     <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
                     <a href="#" style="color: white; margin-right: 15px; font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -227,13 +225,12 @@
                 <p>Express Delivery</p>
                 <p>Corporate Supply Chain</p>
                 <p>Warehouse Management</p>
-                <p>Custom Clearance</p>
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
-                <p><a href="#about" style="color: inherit; text-decoration: none;">Identity</a></p>
-                <p><a href="#services" style="color: inherit; text-decoration: none;">Services</a></p>
-                <p><a href="track.html" style="color: inherit; text-decoration: none;">Track Package</a></p>
+                <p><a href="#about" style="color: inherit; text-decoration: none;">The Identity</a></p>
+                <p><a href="#services" style="color: inherit; text-decoration: none;">Our Solutions</a></p>
+                <p><a href="track.html" style="color: inherit; text-decoration: none;">Track Delivery</a></p>
             </div>
             <div class="footer-links">
                 <h4>Contact Us</h4>

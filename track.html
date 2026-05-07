@@ -2,44 +2,172 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lacak Pengiriman | T'REX Logistics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Track Shipment | T'REX Logistics</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: 'Jost', sans-serif; margin: 0; background: #001B3D; color: white; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        .track-container { width: 90%; max-width: 600px; text-align: center; padding: 40px; }
-        .back-home { position: absolute; top: 30px; left: 30px; color: #C5A059; text-decoration: none; font-weight: 600; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px; }
-        .search-box { background: white; padding: 8px; border-radius: 10px; display: flex; margin-top: 30px; }
-        .search-box input { flex: 1; border: none; padding: 15px; outline: none; font-size: 16px; }
-        .search-box button { background: #C5A059; color: white; border: none; padding: 0 30px; border-radius: 8px; cursor: pointer; font-weight: 700; }
-        #result { margin-top: 30px; color: #C5A059; font-size: 1.1rem; }
+        /* Mencegah overflow secara global */
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; /* Kunci geser horizontal */
+            background: #001B3D;
+            color: white;
+            font-family: 'Jost', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column; /* Biar footer bisa di bawah */
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1; /* Mengisi ruang sisa agar footer tetap di bawah */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .track-container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .back-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #C5A059;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 5px;
+            border-radius: 10px;
+            display: flex;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 15px;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            min-width: 0; /* Penting agar input tidak merusak layout flex di HP */
+        }
+
+        .search-box button {
+            background: #C5A059;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #a38448;
+        }
+
+        #result {
+            margin-top: 30px;
+            color: #C5A059;
+            font-size: 1.1rem;
+            min-height: 50px;
+        }
+
+        /* Footer Style */
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .back-home { top: 15px; left: 15px; }
+            .search-box button { padding: 0 15px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> KEMBALI</a>
-    <div class="track-container">
-        <img src="trex.jpeg" alt="Logo" style="height: 60px; margin-bottom: 20px;">
-        <h1>Lacak Pengiriman</h1>
-        <p style="opacity: 0.7;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
-        <div class="search-box">
-            <input type="text" id="resiInput" placeholder="Contoh: TRX-998877">
-            <button onclick="track()">LACAK</button>
+
+    <div class="main-content">
+        <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> KEMBALI</a>
+        
+        <div class="track-container">
+            <!-- Gunakan margin auto agar gambar tetap di tengah -->
+            <img src="trex.jpeg" alt="Logo" style="height: 60px; margin-bottom: 20px; border-radius: 8px;">
+            <h1>Track Shipment</h1>
+            <p style="opacity: 0.7;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
+            
+            <div class="search-box">
+                <input type="text" id="resiInput" placeholder="Contoh: TRX-998877" spellcheck="false">
+                <button onclick="track()">LACAK</button>
+            </div>
+            
+            <div id="result"></div>
         </div>
-        <div id="result"></div>
     </div>
+
+    <footer>
+        &copy; 2026 T'REX Logistics. All Rights Reserved.
+    </footer>
+
     <script>
         function track() {
             const input = document.getElementById('resiInput').value;
             const res = document.getElementById('result');
-            if(!input) return;
-            res.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> Mencari...";
+            
+            if(!input) {
+                res.innerHTML = "<small style='color: #ff6b6b;'>Silakan masukkan nomor resi.</small>";
+                return;
+            }
+
+            res.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> Searching...";
+            
+            // Simulasi API call
             setTimeout(() => {
-                res.innerHTML = "Status <b>" + input + "</b>: Paket sedang diproses di HUB Jakarta.";
+                res.innerHTML = "Status <b>" + input + "</b>: <br><span style='color:white; opacity:0.9;'>Paket sedang diproses di HUB Jakarta.</span>";
             }, 1500);
         }
+
+        // Jalankan fungsi saat menekan tombol Enter
+        document.getElementById("resiInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                track();
+            }
+        });
     </script>
 </body>
 </html>

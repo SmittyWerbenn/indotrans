@@ -22,14 +22,12 @@
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Full Width Fix */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
         }
 
         body {
@@ -88,15 +86,21 @@
             text-transform: uppercase;
             transition: var(--transition);
         }
+        
         .nav-links a:hover { color: var(--gold); }
         
+        /* Tombol Emas Paling Kanan */
         .track-nav-btn {
             background: var(--gold);
             color: var(--white) !important;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 5px;
-            margin-left: 20px;
+            margin-left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+        .track-nav-btn:hover { background: var(--navy) !important; }
 
         .menu-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
 
@@ -113,90 +117,22 @@
         .hero-content { max-width: 800px; z-index: 2; }
         .hero h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 25px; }
 
-        .hero-bg-text {
-            position: absolute;
-            right: 0;
-            font-size: 30vw;
-            font-weight: 900;
-            color: rgba(0, 27, 61, 0.03);
-            z-index: 1;
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        /* --- Tracking Section (HALAMAN LACAK) --- */
-        #track {
-            background: var(--navy);
-            padding: 120px 8%;
-            color: var(--white);
-            text-align: center;
-            width: 100%;
-        }
-        .tracking-box {
-            max-width: 700px;
-            margin: 40px auto 0;
-            background: var(--white);
-            padding: 10px;
-            border-radius: 10px;
-            display: flex;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        .tracking-box input {
-            flex: 1;
-            border: none;
-            padding: 15px 25px;
-            font-size: 18px;
-            font-family: 'Jost';
-            outline: none;
-            border-radius: 5px 0 0 5px;
-        }
-        .tracking-box button {
-            background: var(--gold);
-            color: var(--white);
-            border: none;
-            padding: 0 40px;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .tracking-box button:hover { background: #ad8a4a; }
-        
-        #trackResult { margin-top: 30px; font-size: 1.2rem; color: var(--gold); }
-
         /* --- Sections --- */
         .section { padding: 120px 8%; width: 100%; }
-        .about-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 100px; 
-            align-items: center; 
-        }
-        .image-box img { width: 100%; height: auto; border-radius: 5px; box-shadow: 20px 20px 0 var(--soft-gray); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+        .image-box img { width: 100%; height: auto; border-radius: 5px; }
 
         /* --- Services --- */
         .services { background: var(--soft-gray); }
-        .service-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 30px; 
-            margin-top: 60px; 
-        }
-        .service-card { 
-            background: var(--white); 
-            padding: 60px 40px; 
-            text-align: center;
-            transition: var(--transition);
-        }
-        .service-card:hover { transform: translateY(-15px); }
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+        .service-card { background: var(--white); padding: 60px 40px; text-align: center; transition: var(--transition); }
         .service-card i { font-size: 50px; color: var(--gold); margin-bottom: 25px; }
 
         /* --- Footer --- */
         footer { background: #000D1E; color: var(--white); padding: 100px 8% 50px; width: 100%; }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; }
 
-        /* --- Responsive Mobile --- */
+        /* --- Responsive --- */
         @media (max-width: 992px) {
             nav { padding: 15px 5%; background: var(--white); }
             .menu-toggle { display: block; }
@@ -210,14 +146,9 @@
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
             .nav-links.active { display: flex; }
-            .nav-links a { margin: 15px 0; margin-left: 0; font-size: 16px; }
-            .track-nav-btn { margin-left: 0; width: 80%; text-align: center; }
-            
-            .hero h1 { font-size: 3.5rem; }
-            .about-grid, .service-grid, .footer-grid { grid-template-columns: 1fr; gap: 50px; }
-            .tracking-box { flex-direction: column; background: transparent; box-shadow: none; padding: 0; }
-            .tracking-box input { border-radius: 8px; margin-bottom: 10px; }
-            .tracking-box button { padding: 15px; border-radius: 8px; }
+            .nav-links a { margin: 15px 0; margin-left: 0; }
+            .track-nav-btn { margin-left: 0; width: 80%; justify-content: center; }
+            .about-grid, .service-grid, .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -233,30 +164,16 @@
         <div class="nav-links" id="nav-list">
             <a href="#about">The Identity</a>
             <a href="#services">Our Solutions</a>
-            <a href="#track" class="track-nav-btn"><i class="fas fa-search-location"></i> Lacak Resi</a>
+            <a href="#contact">Our Contact</a>
+            <a href="track.html" class="track-nav-btn"><i class="fas fa-box-open"></i> Lacak Pengiriman</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="hero-bg-text">TREX</div>
         <div class="hero-content" data-aos="fade-right">
             <span class="subtitle">Premier Logistics & Supply Chain</span>
             <h1>We care <br><span style="color: var(--gold);">Your delivery.</span></h1>
-            <p>Memberikan solusi logistik terintegrasi dengan kecepatan kargo udara, ketangguhan jalur laut, dan keandalan transportasi darat.</p>
-        </div>
-    </section>
-
-    <section id="track">
-        <div data-aos="fade-up">
-            <span class="subtitle" style="color: var(--gold);">Real-time Tracking</span>
-            <h2 style="color: white; font-size: 3rem;">Lacak Pengiriman</h2>
-            <p style="opacity: 0.8; max-width: 600px; margin: 10px auto;">Pantau posisi paket Anda kapan saja dengan memasukkan nomor resi resmi T'REX Logistics.</p>
-            
-            <div class="tracking-box">
-                <input type="text" id="resiInput" placeholder="Masukkan Nomor Resi (Contoh: TRX-123456)">
-                <button onclick="handleTrack()">Lacak Sekarang</button>
-            </div>
-            <div id="trackResult"></div>
+            <p>Memberikan solusi logistik terintegrasi dengan kecepatan kargo udara, ketangguhan jalur laut, dan keandalan darat.</p>
         </div>
     </section>
 
@@ -265,7 +182,7 @@
             <div class="about-text" data-aos="fade-up">
                 <span class="subtitle">Our Identity</span>
                 <h2>Infrastruktur Terkemuka, Layanan Terpercaya</h2>
-                <p>T’REX Logistics, bagian dari <strong>PT Indotrans Express Logistics</strong>, berkomitmen memberikan pengalaman pengiriman tanpa hambatan bagi bisnis Anda di seluruh Indonesia.</p>
+                <p>T’REX Logistics menghadirkan pengalaman pengiriman profesional dengan jaringan luas di seluruh Indonesia.</p>
             </div>
             <div class="image-box" data-aos="fade-left">
                 <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" alt="Warehouse">
@@ -282,78 +199,49 @@
             <div class="service-card" data-aos="zoom-in">
                 <i class="fa-solid fa-plane"></i>
                 <h3 class="serif">Air Freight</h3>
-                <p>Solusi tercepat untuk kiriman sensitif waktu antar bandara utama.</p>
+                <p>Kargo udara cepat untuk kiriman mendesak.</p>
             </div>
             <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
                 <i class="fa-solid fa-truck-moving"></i>
                 <h3 class="serif">Land Transport</h3>
-                <p>Jaringan transportasi darat yang luas untuk distribusi pintu ke pintu.</p>
+                <p>Transportasi darat andal pintu ke pintu.</p>
             </div>
             <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
                 <i class="fa-solid fa-ship"></i>
                 <h3 class="serif">Sea Cargo</h3>
-                <p>Opsi ekonomis untuk pengiriman volume besar antar pulau.</p>
+                <p>Opsi ekonomis untuk volume besar antar pulau.</p>
             </div>
         </div>
     </section>
 
-    <footer>
+    <footer id="contact">
         <div class="footer-grid">
             <div>
                 <h3 class="serif" style="color: var(--gold); margin-bottom: 20px;">T’REX LOGISTICS</h3>
-                <p style="opacity: 0.6; font-size: 14px;">Member of PT Indotrans Express Logistics. Mengantarkan keunggulan ke setiap sudut Nusantara.</p>
+                <p style="opacity: 0.6;">Member of PT Indotrans Express Logistics.</p>
             </div>
             <div>
-                <h4 style="margin-bottom: 20px;">Contact Us</h4>
+                <h4 style="margin-bottom: 20px;">Our Contact</h4>
                 <p style="font-size: 14px; opacity: 0.8;"><i class="fab fa-whatsapp"></i> +62 812 6000 3870</p>
                 <p style="font-size: 14px; opacity: 0.8;"><i class="fas fa-envelope"></i> info@indotransexpress.com</p>
             </div>
-            <div>
-                <h4 style="margin-bottom: 20px;">Head Office</h4>
-                <p style="font-size: 14px; opacity: 0.6;">Gedung Wirausaha Lt. 1, Jakarta Selatan, 12920</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 60px; font-size: 11px; opacity: 0.3; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
-            &copy; 2026 T'REX Logistics. Crafting Supply Chain Excellence.
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
-        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
-
-        // Mobile Menu
         const menuToggle = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
         menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
+            document.getElementById('nav-list').classList.toggle('active');
             menuToggle.querySelector('i').classList.toggle('fa-bars');
             menuToggle.querySelector('i').classList.toggle('fa-times');
         });
-
-        // Tracking Function
-        function handleTrack() {
-            const resi = document.getElementById('resiInput').value;
-            const resArea = document.getElementById('trackResult');
-            
-            if(!resi) {
-                resArea.innerHTML = "<span style='color: #ff7675;'>Mohon masukkan nomor resi.</span>";
-                return;
-            }
-
-            resArea.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> Menghubungkan ke sistem...";
-            
-            setTimeout(() => {
-                resArea.innerHTML = "Status Resi <b>" + resi + "</b>: <span style='color: white;'>Dalam perjalanan ke Gudang Transit Jakarta (In Transit).</span>";
-            }, 1800);
-        }
     </script>
 </body>
 </html>

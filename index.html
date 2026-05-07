@@ -81,14 +81,14 @@
             color: white;
         }
 
-        /* Watermark Stylized Logo */
+        /* Watermark Stylized Logo T-REX */
         .hero-watermark {
             position: absolute;
-            right: -5%;
-            top: 55%;
-            transform: translateY(-50%) skewX(-10deg);
-            width: 65vw;
-            opacity: 0.12;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 75vw;
+            opacity: 0.1;
             pointer-events: none;
             z-index: 1;
         }
@@ -155,7 +155,7 @@
 
             .about-grid, .service-grid, .footer-grid, .stats-bar { grid-template-columns: 1fr; gap: 40px; }
             .hero { text-align: center; justify-content: center; padding-top: 80px; }
-            .hero-watermark { width: 130vw; right: -15%; top: 60%; opacity: 0.08; }
+            .hero-watermark { width: 120vw; right: -15%; top: 60%; opacity: 0.08; }
         }
     </style>
 </head>
@@ -178,8 +178,9 @@
 
     <section class="hero">
         <div class="hero-watermark">
-            <svg viewBox="0 0 1000 200" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 30H240V70H155V170H105V70H20V30Z"/> <path d="M260 30H290V80H260V30Z"/> <path d="M320 30H460C500 30 520 50 520 85C520 110 505 125 480 132L535 170H480L435 135H370V170H320V30ZM370 65V105H455C465 105 470 100 470 85C470 70 465 65 455 65H370Z"/> <path d="M550 30H680V65H600V85H670V115H600V135H685V170H550V30Z"/> <path d="M710 30H765L810 95L855 30H910L840 120L915 170H855L810 135L765 170H710L780 120L710 30Z"/> </svg>
+            <svg viewBox="0 0 1200 300" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <g transform="skewX(-12)"> <path d="M50 50H280V95H195V250H135V95H50V50Z"/> <path d="M295 50H325V110H295V50Z"/> <path d="M350 50H520C570 50 600 80 600 120C600 145 585 170 550 185L620 250H550L490 190H420V250H360V50ZM420 95V145H510C530 145 540 135 540 120C540 105 530 95 510 95H420Z"/> <path d="M630 50H800V90H700V130H780V170H700V210H810V250H630V50Z"/> <path d="M830 50H895L950 130L1005 50H1070L985 150L1075 250H1010L950 170L890 250H825L915 150L830 50Z"/> </g>
+            </svg>
         </div>
 
         <div class="hero-content" data-aos="fade-right">

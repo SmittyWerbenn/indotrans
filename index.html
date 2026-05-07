@@ -13,7 +13,7 @@
     
     <style>
         :root {
-            --brand-blue: #2C82C9; /* Warna mirip background logo yang Anda kirim */
+            --brand-blue: #2C82C9; 
             --navy: #001B3D;
             --gold: #C5A059;
             --white: #FFFFFF;
@@ -58,7 +58,6 @@
             transition: var(--transition);
         }
         
-        /* Warna teks navigasi saat belum scroll di hero biru */
         nav:not(.scrolled) .nav-links a:not(.track-nav-btn) { color: white; }
         nav:not(.scrolled) .menu-toggle { color: white; }
         
@@ -73,7 +72,7 @@
 
         .menu-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
 
-        /* --- Hero Section (Warna disesuaikan dengan logo) --- */
+        /* --- Hero Section --- */
         .hero {
             height: 100vh; width: 100%; display: flex; align-items: center;
             padding: 0 8%; 
@@ -82,17 +81,16 @@
             color: white;
         }
 
-        .hero::after {
-            content: "T-REX";
+        /* Watermark Stylized Logo */
+        .hero-watermark {
             position: absolute;
             right: -5%;
-            font-family: 'Playfair Display', serif;
-            font-size: 25vw;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.07);
+            top: 55%;
+            transform: translateY(-50%) skewX(-10deg);
+            width: 65vw;
+            opacity: 0.12;
             pointer-events: none;
             z-index: 1;
-            white-space: nowrap;
         }
 
         .hero-content { max-width: 800px; z-index: 2; position: relative; }
@@ -153,15 +151,11 @@
             .nav-links.active { display: flex; }
             .nav-links a { margin: 15px 0; margin-left: 0; width: 100%; text-align: center; color: var(--navy) !important; }
             
-            .track-nav-btn { 
-                width: 80% !important; 
-                margin: 15px auto !important; 
-                justify-content: center; 
-            }
+            .track-nav-btn { width: 80% !important; margin: 15px auto !important; justify-content: center; }
 
             .about-grid, .service-grid, .footer-grid, .stats-bar { grid-template-columns: 1fr; gap: 40px; }
             .hero { text-align: center; justify-content: center; padding-top: 80px; }
-            .hero::after { font-size: 40vw; right: -20%; top: 40%; }
+            .hero-watermark { width: 130vw; right: -15%; top: 60%; opacity: 0.08; }
         }
     </style>
 </head>
@@ -183,6 +177,11 @@
     </nav>
 
     <section class="hero">
+        <div class="hero-watermark">
+            <svg viewBox="0 0 1000 200" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 30H240V70H155V170H105V70H20V30Z"/> <path d="M260 30H290V80H260V30Z"/> <path d="M320 30H460C500 30 520 50 520 85C520 110 505 125 480 132L535 170H480L435 135H370V170H320V30ZM370 65V105H455C465 105 470 100 470 85C470 70 465 65 455 65H370Z"/> <path d="M550 30H680V65H600V85H670V115H600V135H685V170H550V30Z"/> <path d="M710 30H765L810 95L855 30H910L840 120L915 170H855L810 135L765 170H710L780 120L710 30Z"/> </svg>
+        </div>
+
         <div class="hero-content" data-aos="fade-right">
             <span class="subtitle" style="color: #fff; opacity: 0.8;">Premier Logistics & Supply Chain</span>
             <h1>We care <br><span>Your delivery.</span></h1>
@@ -265,9 +264,14 @@
             <div class="footer-links">
                 <h4>Contact Us</h4>
                 <p><i class="fab fa-whatsapp"></i> +62 812 6000 3870</p>
-                <p><i class="fas fa-phone-alt"></i> 021-50996969 (Ext 1318)</p>
+                <p><i class="fas fa-phone-alt"></i> 021 - 5099 6969 (Ext 1318)</p>
                 <p><i class="fas fa-envelope"></i> info@indotransexpress.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Gedung Wirausaha Lt. 1 Unit 104, Jl. HR Rasuna Said Kav. C-5, Setiabudi, Jakarta Selatan 12920</p>
+                <p style="opacity: 0.8; font-size: 13px;">
+                    <i class="fas fa-map-marker-alt"></i> 
+                    Gedung Wirausaha Lantai 1 Unit 104,<br>
+                    Jalan HR Rasuna Said Kav. C-5,<br>
+                    Kec. Setiabudi - Jakarta Selatan,<br>DKI Jakarta 12920
+                </p>
             </div>
         </div>
         <div style="text-align: center; margin-top: 80px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; opacity: 0.5;">

@@ -44,9 +44,10 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        .back-home {
+.back-home {
             position: absolute;
-            top: env(safe-area-inset-top, 20px);
+            /* Menggunakan padding kecil sebagai dasar, ditambah inset jika ada */
+            top: calc(10px + env(safe-area-inset-top, 10px)); 
             left: 20px;
             color: #C5A059;
             text-decoration: none;
@@ -54,18 +55,31 @@
             font-size: 0.9rem;
             z-index: 10;
             transition: opacity 0.3s ease;
+            /* Menambah area klik agar lebih mudah ditekan */
+            padding: 10px 0; 
         }
-
-        .back-home:active { opacity: 0.5; }
 
         .track-container {
             width: 100%;
             max-width: 600px;
             text-align: center;
-            padding: 40px 20px;
-            margin: auto; /* Vertikal center */
-            /* Transisi masuk saat halaman dimuat */
+            padding: 20px;
+            /* Menghapus margin: auto agar tidak memaksa ke tengah vertikal 
+               jika konten terlalu naik, kita kontrol dengan flex */
+            margin: auto 0; 
             animation: fadeIn 0.8s ease-out;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem; }
+            .track-container { 
+                /* Menambah padding top khusus mobile agar tidak bertabrakan dengan tombol BACK */
+                padding-top: 60px; 
+            }
+            .back-home {
+                /* Sedikit lebih turun untuk tampilan mobile */
+                top: calc(15px + env(safe-area-inset-top, 0px));
+            }
         }
 
         h1 {

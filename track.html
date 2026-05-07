@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Track Shipment | T'REX Logistics</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -10,18 +10,22 @@
     <style>
         * {
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%; /* Fallback */
-            height: 100dvh; /* Tinggi pas layar HP */
-            overflow: hidden; /* Kunci scroll utama */
+            height: 100%;
+            height: 100dvh;
+            /* Kunci scroll di level terluar (Penting untuk iOS) */
+            overflow: hidden; 
             background: #001B3D;
             color: white;
             font-family: 'Jost', sans-serif;
+            /* Mencegah tarikan refresh di iPhone */
+            overscroll-behavior: none;
         }
 
         body {
@@ -29,34 +33,39 @@
             flex-direction: column;
         }
 
-        /* Area utama yang bisa scroll JIKA konten meluap */
         .main-wrapper {
             flex: 1;
-            overflow-y: auto; /* Scroll muncul otomatis jika hasil track panjang */
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
+            /* Scroll halus tapi tetap terkontrol */
+            -webkit-overflow-scrolling: touch;
         }
 
         .back-home {
             position: absolute;
-            top: 20px;
+            top: env(safe-area-inset-top, 20px);
             left: 20px;
             color: #C5A059;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
             z-index: 10;
+            transition: opacity 0.3s ease;
         }
+
+        .back-home:active { opacity: 0.5; }
 
         .track-container {
             width: 100%;
             max-width: 600px;
             text-align: center;
-            padding: 60px 20px 40px 20px; /* Padding atas lebih besar untuk back button */
-            margin: auto; /* Memastikan konten di tengah secara vertikal saat kosong */
+            padding: 40px 20px;
+            margin: auto; /* Vertikal center */
+            /* Transisi masuk saat halaman dimuat */
+            animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
@@ -68,53 +77,77 @@
         .search-box {
             background: white;
             padding: 5px;
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             margin-top: 30px;
             width: 100%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
 
         .search-box input {
             flex: 1;
             border: none;
-            padding: 12px 15px;
+            padding: 14px 15px;
             outline: none;
             font-size: 16px;
             color: #333;
             min-width: 0;
+            background: transparent;
         }
 
         .search-box button {
             background: #C5A059;
             color: white;
             border: none;
-            padding: 0 20px;
-            border-radius: 8px;
+            padding: 0 25px;
+            border-radius: 9px;
             cursor: pointer;
             font-weight: 700;
+            transition: background 0.3s ease, transform 0.1s active;
         }
+
+        .search-box button:active { transform: scale(0.96); }
 
         #result {
             margin-top: 30px;
-            color: #C5A059;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            min-height: 100px;
+        }
+
+        /* Transisi halus untuk Result */
+        .status-card {
+            background: rgba(197, 160, 89, 0.08);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            text-align: left;
+            animation: slideUp 0.5s ease forwards;
+            opacity: 0;
         }
 
         footer {
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             font-size: 0.8rem;
-            opacity: 0.6;
+            opacity: 0.5;
             background: #001B3D;
-            border-top: 1px solid rgba(197, 160, 89, 0.1);
-            flex-shrink: 0; /* Pastikan footer tidak gepeng */
+            flex-shrink: 0;
+            padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
+        }
+
+        /* Keyframes Transisi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .track-container { padding-top: 80px; }
+            h1 { font-size: 1.9rem; }
+            .track-container { margin: auto 0; padding-top: 100px; }
         }
     </style>
 </head>
@@ -124,12 +157,12 @@
         <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> BACK</a>
         
         <div class="track-container">
-            <img src="trex.jpeg" alt="Logo" style="height: 60px; margin-bottom: 20px; border-radius: 8px;">
+            <img src="trex.jpeg" alt="Logo" style="height: 55px; margin-bottom: 20px; border-radius: 10px;">
             <h1>Track Shipment</h1>
-            <p style="opacity: 0.7;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
+            <p style="opacity: 0.7; font-weight: 300;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
             
             <div class="search-box">
-                <input type="text" id="resiInput" placeholder="Contoh: TRX-998877" spellcheck="false">
+                <input type="text" id="resiInput" placeholder="Contoh: TRX-998877" autocomplete="off" spellcheck="false">
                 <button onclick="track()">LACAK</button>
             </div>
             
@@ -147,32 +180,37 @@
             const res = document.getElementById('result');
             
             if(!input) {
-                res.innerHTML = "<small style='color: #ff6b6b;'>Silakan masukkan nomor resi.</small>";
+                res.innerHTML = "<p style='color: #ff6b6b; font-size: 0.9rem;'>Masukkan nomor resi terlebih dahulu.</p>";
                 return;
             }
 
-            res.innerHTML = "<i class='fas fa-circle-notch fa-spin'></i> Searching...";
+            res.innerHTML = "<i class='fas fa-circle-notch fa-spin' style='color: #C5A059; font-size: 1.5rem;'></i>";
             
             setTimeout(() => {
-                // Menambah konten panjang untuk tes scroll
                 res.innerHTML = `
-                    <div style="background: rgba(197, 160, 89, 0.1); padding: 15px; border-radius: 10px; border: 1px solid #C5A059;">
-                        <span style="color: #C5A059; font-weight: bold;">Status ${input}</span><br>
-                        <span style="color: white; font-size: 0.95rem;">Paket sedang diproses di HUB Jakarta (Sorting Facility).</span>
-                        <hr style="border: 0.5px solid rgba(197,160,89,0.2); margin: 10px 0;">
-                        <small style="color: #aaa; display: block; text-align: left;">
-                            • 07 Mei 2026 22:30 - Paket tiba di HUB Jakarta<br>
-                            • 07 Mei 2026 18:15 - Paket diberangkatkan dari Bandung<br>
-                            • 07 Mei 2026 10:00 - Paket diterima oleh kurir
-                        </small>
+                    <div class="status-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <span style="color: #C5A059; font-weight: 700;">#${input.toUpperCase()}</span>
+                            <span style="background: #C5A059; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem;">ON PROCESS</span>
+                        </div>
+                        <p style="margin: 0; font-size: 0.95rem; color: #eee;">Paket sedang diproses di HUB Jakarta.</p>
+                        <div style="margin-top: 15px; border-top: 1px solid rgba(197,160,89,0.1); padding-top: 10px;">
+                            <small style="color: #888; line-height: 1.8; display: block;">
+                                • 07 May 2026 - Arrived at Jakarta Sorting Center<br>
+                                • 07 May 2026 - Dispatched from Origin
+                            </small>
+                        </div>
                     </div>`;
-            }, 1000);
+                
+                // Scroll otomatis ke bawah hasil di HP jika terpotong
+                const wrapper = document.querySelector('.main-wrapper');
+                wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
+                
+            }, 800);
         }
 
-        document.getElementById("resiInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                track();
-            }
+        document.getElementById("resiInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") track();
         });
     </script>
 </body>

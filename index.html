@@ -68,13 +68,28 @@
 
         .menu-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
 
-        /* --- Hero Section (BALIK KE AWAL) --- */
+        /* --- Hero Section --- */
         .hero {
             height: 100vh; width: 100%; display: flex; align-items: center;
             padding: 0 8%; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-            position: relative;
+            position: relative; overflow: hidden;
         }
-        .hero-content { max-width: 800px; z-index: 2; }
+
+        /* T-REX Watermark di Kanan */
+        .hero::after {
+            content: "T-REX";
+            position: absolute;
+            right: -5%;
+            font-family: 'Playfair Display', serif;
+            font-size: 25vw;
+            font-weight: 900;
+            color: rgba(0, 27, 61, 0.03); /* Sangat transparan agar elegan */
+            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        .hero-content { max-width: 800px; z-index: 2; position: relative; }
         .hero h1 { font-size: clamp(3.2rem, 8vw, 6rem); line-height: 1.1; margin-bottom: 25px; }
 
         /* --- Stats Section --- */
@@ -131,6 +146,7 @@
             .track-nav-btn { width: 80%; }
             .about-grid, .service-grid, .footer-grid, .stats-bar { grid-template-columns: 1fr; gap: 40px; }
             .hero { text-align: center; justify-content: center; padding-top: 80px; }
+            .hero::after { font-size: 40vw; right: -20%; top: 40%; }
         }
     </style>
 </head>
@@ -171,7 +187,7 @@
             <div class="about-text" data-aos="fade-up">
                 <span class="subtitle">Our Identity</span>
                 <h2>Infrastruktur Terkemuka, Layanan Terpercaya</h2>
-                <p>T’REX Logistics menghadirkan pengalaman pengiriman profesional dengan jaringan luas di seluruh Indonesia. Kami memahami bahwa setiap paket memiliki nilai penting, itulah mengapa kami mengedepankan akurasi data dan keamanan fisik barang.</p>
+                <p>T’REX Logistics menghadirkan pengalaman pengiriman profesional dengan jaringan luas di seluruh Indonesia. Kami mengedepankan akurasi data dan keamanan fisik barang di setiap jengkal perjalanan.</p>
                 <p>Dengan dukungan sistem tracking real-time dan tim operasional yang berpengalaman, kami memastikan efisiensi biaya logistik untuk pertumbuhan bisnis Anda.</p>
             </div>
             <div class="image-box" data-aos="fade-left">

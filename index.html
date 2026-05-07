@@ -5,96 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>T'REX Logistics | Official Website</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
             --navy: #001B3D;
             --gold: #C5A059;
-            --gold-light: #E0C18C;
             --white: #FFFFFF;
             --soft-gray: #F4F7F9;
             --text: #2D3436;
-            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Jost', sans-serif; color: var(--text); line-height: 1.8; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; color: var(--navy); font-weight: 700; }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Jost', sans-serif;
-            color: var(--text);
-            line-height: 1.8;
-            background-color: var(--white);
-            overflow-x: hidden;
-        }
-
-        /* --- Typography --- */
-        h1, h2, h3, .serif {
-            font-family: 'Playfair Display', serif;
-            color: var(--navy);
-            font-weight: 700;
-        }
-
-        .subtitle {
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 14px;
-            color: var(--gold);
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        /* --- Navigation --- */
+        /* --- Navigation Fixed & Responsive --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            padding: 30px 8%;
+            padding: 25px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: transparent;
-            z-index: 1000;
+            z-index: 2000;
             transition: var(--transition);
         }
 
         nav.scrolled {
             padding: 15px 8%;
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .logo { display: flex; align-items: center; gap: 15px; }
-        .logo img { height: 50px; }
-        .logo-text { font-size: 24px; letter-spacing: 2px; }
-
+        .logo img { height: 45px; width: auto; transition: var(--transition); }
+        
+        /* Desktop Menu */
+        .nav-links { display: flex; align-items: center; }
         .nav-links a {
             text-decoration: none;
             color: var(--navy);
             margin-left: 35px;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 1px;
             transition: var(--transition);
         }
-
         .nav-links a:hover { color: var(--gold); }
 
-        /* --- Hero Section --- */
+        /* Mobile Toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: var(--navy);
+            cursor: pointer;
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            nav { padding: 20px 5%; background: var(--white); }
+            .menu-toggle { display: block; }
+            .logo img { height: 35px; }
+
+            .nav-links {
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px 0;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+                clip-path: circle(0% at 100% 0%); /* Menu tersembunyi */
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                clip-path: circle(150% at 100% 0%); /* Menu muncul */
+            }
+
+            .nav-links a { margin: 15px 0; font-size: 16px; }
+        }
+
+        /* --- Sections --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -103,151 +100,41 @@
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             position: relative;
         }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 20px; }
+        .section { padding: 100px 8%; }
+        .subtitle { color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-size: 13px; margin-bottom: 10px; display: block; }
 
-        .hero-content { max-width: 700px; z-index: 2; }
-        .hero h1 { font-size: 5.5rem; line-height: 1.1; margin-bottom: 25px; }
-        .hero p { font-size: 1.2rem; color: #636e72; margin-bottom: 40px; font-weight: 300; }
-
-        .hero-bg-text {
-            position: absolute;
-            right: -5%;
-            font-size: 25vw;
-            font-weight: 900;
-            color: rgba(0, 27, 61, 0.03);
-            z-index: 1;
-            user-select: none;
-        }
-
-        /* --- Section Styling --- */
-        .section { padding: 140px 8%; }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
-        }
-
-        .image-box {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-box img {
-            width: 100%;
-            height: 600px;
-            object-fit: cover;
-            border-radius: 4px;
-            transition: transform 1.5s ease;
-        }
-
-        .image-box:hover img {
-            transform: scale(1.05);
-        }
-
-        .image-box::after {
-            content: '';
-            position: absolute;
-            top: 40px; left: -40px;
-            width: 100%; height: 100%;
-            border: 2px solid var(--gold);
-            z-index: -1;
-        }
-
-        /* --- Services --- */
-        .services { background-color: var(--soft-gray); }
-        
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
         .service-card {
-            background: var(--white);
-            padding: 60px 40px;
-            border-radius: 0;
+            background: var(--soft-gray);
+            padding: 50px 30px;
             transition: var(--transition);
-            border-bottom: 0 solid var(--gold);
         }
+        .service-card:hover { background: var(--white); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .service-card i { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
 
-        .service-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-            border-bottom: 8px solid var(--gold);
-        }
-
-        .service-card i { font-size: 45px; color: var(--gold); margin-bottom: 30px; transition: 0.3s; }
-        .service-card:hover i { transform: scale(1.1); }
-        .service-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
-
-        /* --- Vision & Mission --- */
-        .vision-mission {
-            background: var(--navy);
-            color: var(--white);
-        }
-
-        .vision-mission h2, .vision-mission h3 { color: var(--white); }
-        .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-        .vm-card { border-left: 1px solid rgba(197, 160, 89, 0.5); padding-left: 40px; }
-
-        /* --- Terms Section --- */
-        .terms-section {
-            display: grid;
-            grid-template-columns: 35% 65%;
-            gap: 60px;
-        }
-
-        .terms-list {
-            column-count: 2;
-            column-gap: 40px;
-        }
-
-        .term-item {
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-            color: #555;
-            display: flex;
-            gap: 15px;
-        }
-
-        .term-item i { color: var(--gold); margin-top: 5px; }
-
-        /* --- Footer --- */
-        footer {
-            background: #000D1E;
-            color: var(--white);
-            padding: 100px 8% 50px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 100px;
-            margin-bottom: 80px;
-        }
-
-        .footer-logo { font-size: 32px; color: var(--gold); margin-bottom: 20px; }
-        .footer-contact h4 { color: var(--gold); text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px; }
-        .footer-contact p { opacity: 0.7; margin-bottom: 15px; }
-
-        /* --- Responsive --- */
-        @media (max-width: 1024px) {
-            .about-grid, .service-grid, .vm-grid, .terms-section, .footer-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3.5rem; }
-            .image-box { display: none; }
-            .terms-list { column-count: 1; }
-        }
+        footer { background: #000D1E; color: var(--white); padding: 80px 8% 40px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
     </style>
 </head>
 <body>
 
     <nav id="navbar">
-    <div class="logo">
-        <img src="trex.jpeg" alt="T'REX Logo" style="height: 50px; width: auto;">
+        <div class="logo">
+            <img src="trex.jpeg" alt="T'REX Logo">
         </div>
-        <div class="nav-links">
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-links" id="nav-list">
             <a href="#about">The Identity</a>
             <a href="#services">Our Solutions</a>
             <a href="#vision">The Vision</a>
@@ -256,31 +143,16 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-bg-text" data-aos="fade-left" data-aos-duration="2000">TREX</div>
-        <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+        <div class="hero-content" data-aos="fade-up">
             <span class="subtitle">Premier Logistics & Supply Chain</span>
             <h1>We care <br><span style="color: var(--gold);">Your delivery.</span></h1>
-            <p>Menyederhanakan pengiriman Anda ke seluruh nusantara. Kami membangun kepercayaan melalui keandalan dan ketepatan.</p>
-            <div style="width: 120px; height: 1px; background: var(--navy);"></div>
+            <p style="max-width: 600px; margin-bottom: 30px;">Menyederhanakan pengiriman Anda ke seluruh nusantara. Kami membangun kepercayaan melalui keandalan dan ketepatan.</p>
+            <div style="width: 80px; height: 2px; background: var(--gold);"></div>
         </div>
     </section>
 
-    <section id="about" class="section">
-        <div class="about-grid">
-            <div class="about-text" data-aos="fade-right" data-aos-duration="1000">
-                <span class="subtitle">About the Company</span>
-                <h2>Infrastruktur Terkemuka, Layanan Terpercaya</h2>
-                <p style="margin-top: 30px;">T’REX Logistics, bagian dari <strong>PT Indotrans Express Logistics</strong>, adalah pelopor dalam industri logistik Indonesia. Kami tidak hanya mengirim barang; kami memberikan ketenangan pikiran.</p>
-                <p>Dengan sistem yang terintegrasi, kami memungkinkan Anda untuk fokus sepenuhnya pada pertumbuhan bisnis, sementara kami menangani setiap detail distribusi Anda.</p>
-            </div>
-            <div class="image-box" data-aos="fade-left" data-aos-duration="1000">
-                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop" alt="Premium Logistics">
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="section services">
-        <div style="text-align: center; margin-bottom: 80px;" data-aos="fade-up">
+    <section id="services" class="section">
+        <div style="text-align: center;" data-aos="fade-up">
             <span class="subtitle">Solutions</span>
             <h2>Our Distribution Channels</h2>
         </div>
@@ -288,113 +160,68 @@
             <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                 <i class="fa-solid fa-plane-departure"></i>
                 <h3 class="serif">Air Freight</h3>
-                <p>Pengiriman via udara dengan minimal 50 Kg. Prioritas tinggi untuk efisiensi waktu maksimal.</p>
+                <p>Prioritas tinggi untuk efisiensi waktu maksimal antar pulau.</p>
             </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                 <i class="fa-solid fa-truck-fast"></i>
                 <h3 class="serif">Land Transport</h3>
-                <p>Minimal 100 Kg. Jangkauan darat yang luas dengan armada modern untuk seluruh pulau.</p>
+                <p>Armada modern untuk jangkauan darat yang luas dan aman.</p>
             </div>
-            <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                 <i class="fa-solid fa-anchor"></i>
                 <h3 class="serif">Sea Cargo</h3>
-                <p>Minimal 50 Kg. Solusi logistik laut yang terintegrasi untuk kapasitas besar.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="vision" class="section vision-mission">
-        <div class="vm-grid">
-            <div class="vm-card" data-aos="fade-right">
-                <span class="subtitle">The Goal</span>
-                <h3>Visi Kami</h3>
-                <p>Menjadi perusahaan logistik yang inovatif dan mencapai keunggulan kompetitif melalui kolaborasi global dan pelayanan prima.</p>
-            </div>
-            <div class="vm-card" data-aos="fade-right" data-aos-delay="200">
-                <span class="subtitle">The Commitment</span>
-                <h3>Misi Kami</h3>
-                <p>Memberikan solusi logistik yang efisien, mengembangkan kompetensi SDM berdaya saing global, serta memastikan kepuasan pelanggan tetap menjadi prioritas utama.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="terms-section">
-            <div data-aos="fade-up">
-                <span class="subtitle">Governance</span>
-                <h2>Syarat & Ketentuan</h2>
-                <p>Komitmen kami terhadap transparansi operasional dan keamanan barang kiriman Anda.</p>
-            </div>
-            <div class="terms-list" data-aos="fade-up" data-aos-delay="200">
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Wajib packing kayu untuk barang elektronik dan pecah belah.</span>
-                </div>
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Klaim kerusakan diajukan pengirim maksimal 3 hari sejak diterima.</span>
-                </div>
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Perhitungan volume berlaku untuk barang ringan yang memakan tempat.</span>
-                </div>
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Dilarang mengirim narkotika, senjata, uang, dan barang ilegal lainnya.</span>
-                </div>
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Pembatalan sepihak akan dikenakan biaya administrasi & gudang.</span>
-                </div>
-                <div class="term-item">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>Resiko akibat packing tidak sempurna sepenuhnya ditanggung pengirim.</span>
-                </div>
+                <p>Solusi logistik laut terintegrasi untuk kapasitas besar.</p>
             </div>
         </div>
     </section>
 
     <footer id="contact">
         <div class="footer-grid">
-            <div data-aos="fade-up">
-                <div class="footer-logo serif">T’REX <span style="color: var(--white);">LOGISTICS</span></div>
-                <p style="opacity: 0.6; font-weight: 300;">Premium Logistics Member of PT Indotrans Express Logistics. Mengantarkan keunggulan ke seluruh Nusantara.</p>
+            <div>
+                <h3 class="serif" style="color: var(--gold); margin-bottom: 20px;">T’REX LOGISTICS</h3>
+                <p style="opacity: 0.7; font-size: 14px;">Premium Logistics Member of PT Indotrans Express Logistics.</p>
             </div>
-            <div class="footer-contact" data-aos="fade-up" data-aos-delay="200">
-                <h4>Contact Info</h4>
-                <p><i class="fa-brands fa-whatsapp" style="color: var(--gold); margin-right: 10px;"></i> +62 812 6000 3870</p>
-                <p><i class="fa-solid fa-phone" style="color: var(--gold); margin-right: 10px;"></i> 021 - 5099 6969 Ext 1318</p>
-                <p><i class="fa-solid fa-envelope" style="color: var(--gold); margin-right: 10px;"></i> info@indotransexpress.com</p>
-            </div>
-            <div class="footer-contact" data-aos="fade-up" data-aos-delay="400">
-                <h4>Head Office</h4>
-                <p>Gedung Wirausaha Lantai 1 Unit 104<br>Jl. HR Rasuna Said Kav. C-5<br>Jakarta Selatan, 12920</p>
+            <div>
+                <h4 style="margin-bottom: 20px; color: var(--gold);">Contact Info</h4>
+                <p style="font-size: 14px; opacity: 0.8;"><i class="fab fa-whatsapp"></i> +62 812 6000 3870</p>
+                <p style="font-size: 14px; opacity: 0.8;"><i class="fas fa-envelope"></i> info@indotransexpress.com</p>
             </div>
         </div>
-        <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; font-size: 13px; opacity: 0.4;">
-            &copy; 2026 T'REX Logistics. Crafting Excellence in Supply Chain.
+        <div style="margin-top: 50px; text-align: center; font-size: 12px; opacity: 0.4; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            &copy; 2026 T'REX Logistics. Crafting Excellence.
         </div>
     </footer>
 
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000, // Durasi animasi standar
-            once: true,     // Animasi hanya berjalan sekali saat scroll down
-            offset: 120,    // Jarak (px) dari viewport sebelum animasi dipicu
-            easing: 'ease-out-cubic' // Jenis transisi yang halus
-        });
+        AOS.init({ duration: 1000, once: true });
 
         // Navbar Scroll Effect
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navList = document.getElementById('nav-list');
+
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            // Ganti icon bars ke times (X)
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Tutup menu saat link diklik
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+                document.querySelector('#mobile-menu i').classList.add('fa-bars');
+                document.querySelector('#mobile-menu i').classList.remove('fa-times');
+            });
         });
     </script>
 </body>

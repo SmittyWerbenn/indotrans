@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Track Shipment | T'REX Logistics</title>
+    <title>Track Delivery | T'REX Logistics</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -19,12 +19,10 @@
             width: 100%;
             height: 100%;
             height: 100dvh;
-            /* Kunci scroll di level terluar (Penting untuk iOS) */
             overflow: hidden; 
             background: #001B3D;
             color: white;
             font-family: 'Jost', sans-serif;
-            /* Mencegah tarikan refresh di iPhone */
             overscroll-behavior: none;
         }
 
@@ -40,13 +38,11 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            /* Scroll halus tapi tetap terkontrol */
             -webkit-overflow-scrolling: touch;
         }
 
-.back-home {
+        .back-home {
             position: absolute;
-            /* Menggunakan padding kecil sebagai dasar, ditambah inset jika ada */
             top: calc(10px + env(safe-area-inset-top, 10px)); 
             left: 20px;
             color: #C5A059;
@@ -55,7 +51,6 @@
             font-size: 0.9rem;
             z-index: 10;
             transition: opacity 0.3s ease;
-            /* Menambah area klik agar lebih mudah ditekan */
             padding: 10px 0; 
         }
 
@@ -64,8 +59,6 @@
             max-width: 600px;
             text-align: center;
             padding: 20px;
-            /* Menghapus margin: auto agar tidak memaksa ke tengah vertikal 
-               jika konten terlalu naik, kita kontrol dengan flex */
             margin: auto 0; 
             animation: fadeIn 0.8s ease-out;
         }
@@ -73,11 +66,9 @@
         @media (max-width: 480px) {
             h1 { font-size: 1.9rem; }
             .track-container { 
-                /* Menambah padding top khusus mobile agar tidak bertabrakan dengan tombol BACK */
                 padding-top: 60px; 
             }
             .back-home {
-                /* Sedikit lebih turun untuk tampilan mobile */
                 top: calc(15px + env(safe-area-inset-top, 0px));
             }
         }
@@ -127,7 +118,6 @@
             min-height: 100px;
         }
 
-        /* Transisi halus untuk Result */
         .status-card {
             background: rgba(197, 160, 89, 0.08);
             padding: 20px;
@@ -148,7 +138,6 @@
             padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
         }
 
-        /* Keyframes Transisi */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -172,11 +161,11 @@
         
         <div class="track-container">
             <img src="trex.jpeg" alt="Logo" style="height: 55px; margin-bottom: 20px; border-radius: 10px;">
-            <h1>Track Shipment</h1>
+            <h1>Track Delivery</h1>
             <p style="opacity: 0.7; font-weight: 300;">Masukkan nomor resi resmi T'REX Logistics Anda.</p>
             
             <div class="search-box">
-                <input type="text" id="resiInput" placeholder="Contoh: TRX-998877" autocomplete="off" spellcheck="false">
+                <input type="text" id="resiInput" placeholder="Contoh: DEV00205046460" autocomplete="off" spellcheck="false">
                 <button onclick="track()">TRACK</button>
             </div>
             
@@ -189,8 +178,8 @@
     </footer>
 
     <script>
-        function track() {
-            const input = document.getElementById('resiInput').value;
+        async function track() {
+            const input = document.getElementById('resiInput').value.trim();
             const res = document.getElementById('result');
             
             if(!input) {
@@ -198,31 +187,87 @@
                 return;
             }
 
+            // Animasi loading mutar
             res.innerHTML = "<i class='fas fa-circle-notch fa-spin' style='color: #C5A059; font-size: 1.5rem;'></i>";
             
-            setTimeout(() => {
+            try {
+                // Konfigurasi API Development berdasarkan Halaman 7 dokumen SAPX
+                // Host Staging: https://apisanbox.coresyssap.com/
+                const devHost = "https://apisanbox.coresyssap.com";
+                const endpoint = `${devHost}/v2/tracking/awb/get?awb_no=${encodeURIComponent(input)}`;
+                
+                // Gunakan credential dev dari halaman 7
+                const apiKey = "DEV_m4rK3tPlac3#_2019"; 
+
+                // Fetch data dari endpoint
+                const response = await fetch(endpoint, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'api_key': apiKey
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+
+                // Validasi format kembalian data 
+                if (result.status === false || !result.data) {
+                    throw new Error(result.error || "Data resi tidak ditemukan di sistem.");
+                }
+
+                // Deklarasikan variabel berdasarkan struktur respon Tracking
+                // Misal: result.data.rowstate_web atau result.data.pod_status_name
+                const trackingData = result.data[0] || result.data; // Tergantung struktur array/object
+                const currentStatus = trackingData.rowstate_web || trackingData.status || "ON PROCESS"; 
+                const awbNo = trackingData.awb_no || input;
+                const historyArray = trackingData.history || []; // Jika API mengirim detail riwayat perjalanan
+
+                let historyHtml = "";
+                
+                // Mapping riwayat paket (jika disediakan oleh endpoint)
+                if (historyArray.length > 0) {
+                    historyHtml = historyArray.map(item => {
+                        return `• ${item.date || item.created_at} - ${item.status || item.desc} <br>`;
+                    }).join('');
+                } else {
+                    // Fallback apabila endpoint hanya memberikan current status saja
+                    historyHtml = `• Status Saat Ini: ${currentStatus}<br>• Lokasi Terakhir: ${trackingData.branch_name || "Unknown"} (Deskripsi: ${trackingData.description || "-"})`;
+                }
+
+                // Render ke UI HTML
                 res.innerHTML = `
                     <div class="status-card">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <span style="color: #C5A059; font-weight: 700;">#${input.toUpperCase()}</span>
-                            <span style="background: #C5A059; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem;">ON PROCESS</span>
+                            <span style="color: #C5A059; font-weight: 700;">#${awbNo.toUpperCase()}</span>
+                            <span style="background: #C5A059; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; text-transform: uppercase;">${currentStatus}</span>
                         </div>
-                        <p style="margin: 0; font-size: 0.95rem; color: #eee;">Paket sedang diproses di HUB Jakarta.</p>
+                        <p style="margin: 0; font-size: 0.95rem; color: #eee;">Detail Tracking Order SAPX.</p>
                         <div style="margin-top: 15px; border-top: 1px solid rgba(197,160,89,0.1); padding-top: 10px;">
                             <small style="color: #888; line-height: 1.8; display: block;">
-                                • 07 May 2026 - Arrived at Jakarta Sorting Center<br>
-                                • 07 May 2026 - Dispatched from Origin
+                                ${historyHtml}
                             </small>
                         </div>
                     </div>`;
-                
-                // Scroll otomatis ke bawah hasil di HP jika terpotong
-                const wrapper = document.querySelector('.main-wrapper');
-                wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
-                
-            }, 800);
+                    
+            } catch (error) {
+                console.error("Tracking Error:", error);
+                res.innerHTML = `
+                    <p style='color: #ff6b6b; font-size: 0.9rem;'>
+                        Gagal menemukan data resi <b>${input}</b>. <br>
+                        <span style='font-size:0.8rem; color:#aaa;'>Pesan: ${error.message}</span>
+                    </p>`;
+            }
+            
+            // Scroll otomatis ke bawah jika konten hasil pencarian menutupi layar HP
+            const wrapper = document.querySelector('.main-wrapper');
+            wrapper.scrollTo({ top: wrapper.scrollHeight, behavior: 'smooth' });
         }
 
+        // Jalankan fungsi ketika tombol Enter di tekan pada input
         document.getElementById("resiInput").addEventListener("keypress", function(e) {
             if (e.key === "Enter") track();
         });

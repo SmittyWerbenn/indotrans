@@ -134,6 +134,14 @@
         .footer-links a { color: inherit; text-decoration: none; transition: 0.3s; }
         .footer-links a:hover { color: var(--gold); }
 
+        .footer-logo-container { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .footer-logo-container img { height: 45px; width: auto; }
+        .footer-logo-container h3 { margin: 0; }
+        
+        .address-container { display: flex; align-items: flex-start; margin-top: 15px; }
+        .address-container i { margin-top: 5px; }
+        .address-text { line-height: 1.6; font-size: 14px; opacity: 0.7; }
+
         @media (max-width: 992px) {
             nav { padding: 15px 5%; background: var(--white); }
             .menu-toggle { display: block; }
@@ -235,7 +243,10 @@
     <footer id="contact">
         <div class="footer-grid">
             <div class="footer-links">
-                <h3 class="serif" style="color: var(--gold); margin-bottom: 20px;">T’REX LOGISTICS</h3>
+                <div class="footer-logo-container">
+                    <img src="trex.jpeg" alt="T'REX Logo">
+                    <h3 class="serif" style="color: var(--gold);">T’REX LOGISTICS</h3>
+                </div>
                 <p style="opacity: 0.6;">Member of PT Indotrans Express Logistics.</p>
                 <div style="margin-top: 20px;">
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -259,14 +270,14 @@
                 <p><i class="fab fa-whatsapp"></i> +62 812 9997 8937</p>
                 <p><i class="fas fa-phone-alt"></i> 021 - 5099 6969 Ext 1318</p>
                 <p><i class="fas fa-envelope"></i> indotrans.office@gmail.com</p>
-                <p style="margin-top: 15px;">
+                <div class="address-container">
                     <i class="fas fa-map-marker-alt"></i> 
-                    <span style="white-space: nowrap; display: inline-block;">Gedung Wirausaha Lantai 1 Unit 104</span><br>
-                    <span style="padding-left: 28px; display: inline-block; opacity: 0.8;">
+                    <div class="address-text">
+                        <span style="white-space: nowrap; display: inline-block; opacity: 1; color: var(--white);">Gedung Wirausaha Lantai 1 Unit 104</span><br>
                         Jalan HR Rasuna Said Kav. C-5<br>
                         Setiabudi - Jakarta Selatan, 12920
-                    </span>
-                </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div style="text-align: center; margin-top: 80px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; opacity: 0.5;">

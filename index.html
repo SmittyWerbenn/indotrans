@@ -258,10 +258,10 @@
                 <h4>Contact Us</h4>
                 <p><i class="fab fa-whatsapp"></i> +62 812 9997 8937</p>
                 <p><i class="fas fa-phone-alt"></i> 021 - 5099 6969 Ext 1318</p>
-                <p><i class="fas fa-envelope"></i> info@indotransexpress.com</p>
+                <p><i class="fas fa-envelope"></i> indotrans.office@gmail.com</p>
                 <p style="margin-top: 15px;">
                     <i class="fas fa-map-marker-alt"></i> 
-                    Gedung Wirausaha Lantai 1 Unit 104<br>
+                    <span style="white-space: nowrap; display: inline-block;">Gedung Wirausaha Lantai 1 Unit 104</span><br>
                     <span style="padding-left: 28px; display: inline-block; opacity: 0.8;">
                         Jalan HR Rasuna Said Kav. C-5<br>
                         Setiabudi - Jakarta Selatan, 12920
@@ -276,7 +276,6 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inisialisasi AOS
         AOS.init({ duration: 1000, once: true });
 
         const nav = document.getElementById('navbar');
@@ -284,20 +283,17 @@
         const navList = document.getElementById('nav-list');
         const navLinks = document.querySelectorAll('.nav-links a');
 
-        // Scroll effect untuk navbar
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
 
-        // Toggle menu buka/tutup
         menuToggle.addEventListener('click', () => {
             navList.classList.toggle('active');
             menuToggle.querySelector('i').classList.toggle('fa-bars');
             menuToggle.querySelector('i').classList.toggle('fa-times');
         });
 
-        // Script untuk menghilangkan menu dropdown saat link diklik (khusus mobile)
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navList.classList.contains('active')) {

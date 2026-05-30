@@ -1,4 +1,5 @@
+
 const API_CONFIG = {
-    DEV_HOST: "https://apisanbox.coresyssap.com",
-    API_KEY: "DEV_m4rK3tPlac3#_2019"
+    BASE_URL: "https://apisanbox.coresyssap.com/v2/shipment/tracking",
+    API_KEY: "DEV_m4rK3tPlac3#_2019" 
 };

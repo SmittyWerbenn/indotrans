@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Track Delivery | T'REX Logistics</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy: #001B3D;
+            --gold: #C5A059;
+            --gold-light: rgba(197, 160, 89, 0.15);
+            --white: #FFFFFF;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --info: #3498db;
+            --text-light: rgba(255,255,255,0.7);
+            --card-bg: rgba(255,255,255,0.05);
+            --border-subtle: rgba(255,255,255,0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%; min-height: 100%;
+            background: var(--navy);
+            color: white;
+            font-family: 'Jost', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            display: flex; flex-direction: column;
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, rgba(197,160,89,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(0,27,61,0.8) 0%, transparent 60%);
+        }
+
+        /* ── Header ───────────────────────────────────────── */
+        .top-bar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 24px; position: relative; z-index: 10;
+            padding-top: calc(16px + env(safe-area-inset-top, 0px));
+        }
+
+        .back-btn {
+            color: var(--gold); text-decoration: none;
+            font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 8px;
+            transition: opacity 0.2s; padding: 8px 0;
+        }
+        .back-btn:hover { opacity: 0.8; }
+
+        .brand {
+            display: flex; align-items: center; gap: 10px;
+        }
+        .brand img { height: 36px; border-radius: 6px; }
+        .brand span { font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; color: var(--gold); }
+
+        /* ── Main Content ─────────────────────────────────── */
+        .main-wrapper {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; padding: 0 20px 40px;
+        }
+
+        .track-container {
+            width: 100%; max-width: 640px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* ── Hero Section ─────────────────────────────────── */
+        .hero-area {
+            text-align: center; margin-bottom: 32px;
+        }
+        .hero-area h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.3rem; font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .hero-area p {
+            color: var(--text-light); font-weight: 300;
+            font-size: 1rem;
+        }
+
+        /* ── Search Box ───────────────────────────────────── */
+        .search-card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .search-row {
+            display: flex; gap: 10px;
+        }
+
+        .input-wrapper {
+            flex: 1; position: relative;
+        }
+        .input-wrapper i {
+            position: absolute; left: 16px; top: 50%;
+            transform: translateY(-50%); color: var(--gold);
+            font-size: 1rem; z-index: 2;
+        }
+        .input-wrapper input {
+            width: 100%; padding: 15px 16px 15px 44px;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 10px; background: rgba(255,255,255,0.06);
+            color: white; font-size: 1rem; font-family: 'Jost', sans-serif;
+            outline: none; transition: border-color 0.3s, background 0.3s;
+        }
+        .input-wrapper input:focus {
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.1);
+        }
+        .input-wrapper input::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .search-row button {
+            background: var(--gold); color: white; border: none;
+            padding: 0 28px; border-radius: 10px; cursor: pointer;
+            font-weight: 700; font-size: 0.9rem; font-family: 'Jost', sans-serif;
+            letter-spacing: 1px; transition: all 0.3s;
+            white-space: nowrap; min-width: 100px;
+        }
+        .search-row button:hover { background: #d4af6b; transform: translateY(-1px); }
+        .search-row button:active { transform: scale(0.97); }
+        .search-row button:disabled {
+            opacity: 0.6; cursor: not-allowed; transform: none;
+        }
+
+        .hint-row {
+            display: flex; align-items: center; gap: 8px;
+            margin-top: 12px; font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .hint-row i { color: var(--gold); font-size: 0.75rem; }
+
+        /* ── Error ────────────────────────────────────────── */
+        .error-card {
+            background: rgba(231,76,60,0.12);
+            border: 1px solid rgba(231,76,60,0.4);
+            border-radius: 12px; padding: 20px 24px;
+            display: flex; align-items: flex-start; gap: 14px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        .error-card i { color: var(--danger); font-size: 1.3rem; margin-top: 2px; }
+        .error-card .msg { flex: 1; }
+        .error-card .msg strong { color: var(--danger); }
+        .error-card .msg p { margin-top: 4px; font-size: 0.85rem; opacity: 0.75; }
+
+        /* ── Summary Card ─────────────────────────────────── */
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px; padding: 24px;
+            margin-bottom: 24px; animation: fadeInUp 0.4s ease-out;
+        }
+        .summary-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px; padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; font-weight: 600;
+            padding: 6px 14px; border-radius: 20px;
+        }
+        .status-badge.in-transit {
+            background: rgba(52,152,219,0.2); color: #5dade2;
+        }
+        .status-badge.delivered {
+            background: rgba(46,204,113,0.2); color: #58d68d;
+        }
+        .status-badge.pending {
+            background: rgba(241,196,15,0.2); color: #f4d03f;
+        }
+        .status-badge.returned {
+            background: rgba(231,76,60,0.2); color: #f1948a;
+        }
+
+        .summary-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+        }
+        .summary-item { display: flex; flex-direction: column; gap: 4px; }
+        .summary-item .label {
+            font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--gold); font-weight: 600;
+        }
+        .summary-item .value {
+            font-size: 0.95rem; font-weight: 500;
+            color: white; word-break: break-word;
+        }
+        .summary-item.full { grid-column: 1 / -1; }
+
+        @media (max-width: 480px) {
+            .summary-grid { grid-template-columns: 1fr; }
+            .summary-item.full { grid-column: 1; }
+        }
+
+        /* ── Timeline ─────────────────────────────────────── */
+        .timeline-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px; padding: 24px;
+            animation: fadeInUp 0.5s ease-out;
+        }
+        .timeline-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .timeline-card h3 i { color: var(--gold); }
+
+        .timeline-track {
+            position: relative; padding-left: 28px;
+        }
+        .timeline-track::before {
+            content: ''; position: absolute; left: 6px; top: 6px;
+            bottom: 6px; width: 2px;
+            background: linear-gradient(to bottom, var(--gold), rgba(197,160,89,0.2));
+        }
+
+        .tl-item {
+            position: relative; padding-bottom: 28px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        .tl-item:last-child { padding-bottom: 0; }
+
+        .tl-dot {
+            position: absolute; left: -26px; top: 4px;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: rgba(197,160,89,0.4);
+            border: 2px solid rgba(197,160,89,0.5);
+            z-index: 2; transition: all 0.3s;
+        }
+        .tl-item.latest .tl-dot {
+            background: var(--success); border-color: var(--success);
+            box-shadow: 0 0 16px rgba(46,204,113,0.5);
+        }
+
+        .tl-date {
+            font-size: 0.78rem; color: var(--gold);
+            font-weight: 600; margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+        .tl-status {
+            font-size: 1rem; font-weight: 600; line-height: 1.4;
+        }
+        .tl-desc {
+            font-size: 0.85rem; color: var(--text-light);
+            margin-top: 4px; line-height: 1.5;
+        }
+        .tl-location {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 0.78rem; color: var(--gold); opacity: 0.8;
+            margin-top: 6px;
+        }
+
+        /* ── Loading ──────────────────────────────────────── */
+        .loading-state {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 16px; padding: 40px 20px; animation: fadeInUp 0.3s ease-out;
+        }
+        .spinner {
+            width: 44px; height: 44px; border: 3px solid rgba(197,160,89,0.2);
+            border-top-color: var(--gold); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Footer ───────────────────────────────────────── */
+        footer {
+            padding: 20px; text-align: center;
+            font-size: 0.78rem; color: var(--text-light);
+            border-top: 1px solid var(--border-subtle);
+            margin-top: auto;
+            padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
+        }
+
+        /* ── Animations ───────────────────────────────────── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="../" class="back-btn"><i class="fas fa-arrow-left"></i> Home</a>
+        <div class="brand">
+            <img src="../trex.jpeg" alt="T'REX">
+            <span>T'REX</span>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="track-container">
+
+            <!-- ── Hero ── -->
+            <div class="hero-area">
+                <h1>Lacak Paket</h1>
+                <p>Masukkan nomor resi untuk melihat status pengiriman Anda secara real-time.</p>
+            </div>
+
+            <!-- ── Search ── -->
+            <div class="search-card">
+                <div class="search-row">
+                    <div class="input-wrapper">
+                        <i class="fas fa-box"></i>
+                        <input type="text" id="resiInput" placeholder="Nomor Resi / AWB" autocomplete="off" spellcheck="false" maxlength="30">
+                    </div>
+                    <button id="trackBtn" onclick="doTrack()">
+                        <span class="btn-text">LACAK</span>
+                    </button>
+                </div>
+                <div class="hint-row">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Contoh: <strong style="color:var(--gold);cursor:pointer" onclick="quickFill('test-001')">test-001</strong> atau <strong style="color:var(--gold);cursor:pointer" onclick="quickFill('DEV00205046460')">DEV00205046460</strong></span>
+                </div>
+            </div>
+
+            <!-- ── Results ── -->
+            <div id="result"></div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 PT Indotrans Express Logistics — T'REX Logistics
+    </footer>
+
+    <script src="config.js"></script>
+    <script>
+    // ── CONFIG ──────────────────────────────────────────────────────────
+    // Load external config (if exists) for GitHub Pages deployment override
+    // Untuk development lokal: backend jalan di server yang sama
+    // Untuk GitHub Pages: edit track/config.js dan ganti YOUR_BACKEND_URL
+    const API_BASE = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.API_BASE)
+        ? TRACKING_CONFIG.API_BASE
+        : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? '/api'
+            : 'https://YOUR_BACKEND_URL.onrender.com/api';
+
+    // ── STATE MAPPING ───────────────────────────────────────────────────
+    const DELIVERED_STATES = ['POD - DELIVERED', 'SHIPMENT RETURN TO CLIENT'];
+    const RETURNED_STATES = ['SHIPMENT RETURN TO CLIENT', 'DELIVERY RETURN', 'INCOMING RETURN', 'OUTGOING RETURN'];
+    const PENDING_STATES = ['ENTRI (SEDANG DI PICKUP)', 'ENTRI VERIFIED', 'ENTRI (PENDING PICKUP)', 'ENTRI (SEDANG PICKUP ULANG)'];
+
+    function getStatusCategory(rowstateName) {
+        if (!rowstateName) return 'in-transit';
+        if (DELIVERED_STATES.some(s => rowstateName.includes(s))) return 'delivered';
+        if (RETURNED_STATES.some(s => rowstateName.includes(s))) return 'returned';
+        if (PENDING_STATES.some(s => rowstateName.includes(s))) return 'pending';
+        return 'in-transit';
+    }
+
+    function getStatusLabel(category) {
+        const map = {
+            'delivered': 'Terkirim',
+            'returned': 'Dikembalikan',
+            'pending': 'Menunggu Pickup',
+            'in-transit': 'Dalam Pengiriman'
+        };
+        return map[category] || 'Diproses';
+    }
+
+    // ── HELPERS ──────────────────────────────────────────────────────────
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    function formatDate(dateStr) {
+        if (!dateStr) return '-';
+        try {
+            const d = new Date(dateStr.replace(' ', 'T') + '+07:00');
+            return d.toLocaleDateString('id-ID', {
+                weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        } catch { return dateStr; }
+    }
+
+    // ── QUICK FILL ───────────────────────────────────────────────────────
+    function quickFill(val) {
+        document.getElementById('resiInput').value = val;
+        doTrack();
+    }
+
+    // ── TRACK ────────────────────────────────────────────────────────────
+    async function doTrack() {
+        const input = document.getElementById('resiInput');
+        const btn = document.getElementById('trackBtn');
+        const resultDiv = document.getElementById('result');
+        const resi = input.value.trim();
+
+        if (!resi) {
+            resultDiv.innerHTML = `
+                <div class="error-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="msg">
+                        <strong>Field kosong</strong>
+                        <p>Masukkan nomor resi terlebih dahulu.</p>
+                    </div>
+                </div>`;
+            return;
+        }
+
+        // Loading
+        btn.disabled = true;
+        btn.querySelector('.btn-text').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        resultDiv.innerHTML = `
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p style="color: var(--text-light)">Mencari paket <strong>${escapeHtml(resi)}</strong>...</p>
+            </div>`;
+
+        try {
+            const url = `${API_BASE}/track?awb_no=${encodeURIComponent(resi)}`;
+            const resp = await fetch(url);
+            const data = await resp.json();
+
+            if (data.status === 'success' && data.data && data.data.length > 0) {
+                renderSuccess(data);
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="error-card">
+                        <i class="fas fa-search"></i>
+                        <div class="msg">
+                            <strong>Nomor resi tidak ditemukan</strong>
+                            <p>"${escapeHtml(resi)}" belum terdaftar di sistem kami. Periksa kembali nomor resi Anda.</p>
+                        </div>
+                    </div>`;
+            }
+        } catch (err) {
+            console.error('Track error:', err);
+            resultDiv.innerHTML = `
+                <div class="error-card">
+                    <i class="fas fa-wifi"></i>
+                    <div class="msg">
+                        <strong>Gagal terhubung</strong>
+                        <p>Server sedang tidak dapat dijangkau. Periksa koneksi internet Anda dan coba lagi.</p>
+                    </div>
+                </div>`;
+        } finally {
+            btn.disabled = false;
+            btn.querySelector('.btn-text').textContent = 'LACAK';
+        }
+    }
+
+    function renderSuccess(data) {
+        const summary = data.summary || {};
+        const tracking = data.data;
+        const cat = getStatusCategory(tracking[0]?.rowstate_name);
+        const label = getStatusLabel(cat);
+
+        let html = '';
+
+        // ── Summary Card ──
+        html += `
+        <div class="summary-card">
+            <div class="summary-header">
+                <span class="status-badge ${cat}">
+                    <i class="fas fa-${cat === 'delivered' ? 'check-circle' : cat === 'returned' ? 'undo' : cat === 'pending' ? 'clock' : 'truck'}"></i>
+                    ${label}
+                </span>
+                <span style="font-size:0.85rem;color:var(--text-light);margin-left:auto">
+                    ${tracking.length} checkpoint
+                </span>
+            </div>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-hashtag"></i> No. Resi</span>
+                    <span class="value">${escapeHtml(summary.awb_no || '-')}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-barcode"></i> No. Referensi</span>
+                    <span class="value">${escapeHtml(summary.reference_no || '-')}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-map-pin"></i> Asal</span>
+                    <span class="value">${escapeHtml(summary.origin || '-')}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-flag-checkered"></i> Tujuan</span>
+                    <span class="value">${escapeHtml(summary.destination || '-')}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-weight-hanging"></i> Berat / Koli</span>
+                    <span class="value">${summary.weight || '-'} kg / ${summary.koli || '-'} koli</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label"><i class="fas fa-truck-fast"></i> Layanan</span>
+                    <span class="value">${escapeHtml(summary.service || '-')}</span>
+                </div>
+                <div class="summary-item full">
+                    <span class="label"><i class="fas fa-calendar-alt"></i> Update Terakhir</span>
+                    <span class="value">${formatDate(summary.last_update)}</span>
+                </div>
+            </div>
+        </div>`;
+
+        // ── Timeline Card ──
+        html += `
+        <div class="timeline-card">
+            <h3><i class="fas fa-route"></i> Riwayat Perjalanan</h3>
+            <div class="timeline-track">`;
+
+        tracking.forEach((item, i) => {
+            const isLatest = i === 0;
+            html += `
+                <div class="tl-item ${isLatest ? 'latest' : ''}">
+                    <div class="tl-dot"></div>
+                    <div class="tl-date">${formatDate(item.create_date)}</div>
+                    <div class="tl-status">${escapeHtml(item.rowstate_web || item.rowstate_name)}</div>
+                    ${item.description ? `<div class="tl-desc">${escapeHtml(item.description)}</div>` : ''}
+                    ${item.current_branch_name ? `<div class="tl-location"><i class="fas fa-building"></i> ${escapeHtml(item.current_branch_name)}</div>` : ''}
+                </div>`;
+        });
+
+        html += `
+            </div>
+        </div>`;
+
+        document.getElementById('result').innerHTML = html;
+
+        // Scroll to result
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Enter Key ────────────────────────────────────────────────────────
+    document.getElementById('resiInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') doTrack();
+    });
+    </script>
+</body>
+</html>

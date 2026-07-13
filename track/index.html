@@ -339,14 +339,17 @@
     <script src="config.js"></script>
     <script>
     // ── CONFIG ──────────────────────────────────────────────────────────
-    // Load external config (if exists) for GitHub Pages deployment override
-    // Untuk development lokal: backend jalan di server yang sama
-    // Untuk GitHub Pages: edit track/config.js dan ganti YOUR_BACKEND_URL
     const API_BASE = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.API_BASE)
         ? TRACKING_CONFIG.API_BASE
         : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? '/api'
-            : 'https://YOUR_BACKEND_URL.onrender.com/api';
+            : 'https://apisanbox.coresyssap.com/v2/shipment';
+    const API_KEY = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.API_KEY)
+        ? TRACKING_CONFIG.API_KEY
+        : null;
+    const DIRECT = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.DIRECT)
+        ? TRACKING_CONFIG.DIRECT
+        : (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1');
 
     // ── STATE MAPPING ───────────────────────────────────────────────────
     const DELIVERED_STATES = ['POD - DELIVERED', 'SHIPMENT RETURN TO CLIENT'];
@@ -424,9 +427,33 @@
             </div>`;
 
         try {
-            const url = `${API_BASE}/track?awb_no=${encodeURIComponent(resi)}`;
-            const resp = await fetch(url);
+            const url = DIRECT
+                ? `${API_BASE}/tracking?awb_no=${encodeURIComponent(resi)}`
+                : `${API_BASE}/track?awb_no=${encodeURIComponent(resi)}`;
+            const opts = DIRECT
+                ? { headers: { 'api_key': API_KEY, 'Content-Type': 'application/json' } }
+                : {};
+            const resp = await fetch(url, opts);
             const data = await resp.json();
+
+            // Normalize direct SAPX response (no summary field)
+            if (DIRECT && data.status === 'success' && data.data && data.data.length > 0) {
+                data.data.reverse();
+                const first = data.data[0];
+                data.summary = {
+                    awb_no: first.awb_no,
+                    reference_no: first.reference_no,
+                    origin: first.origin || '-',
+                    destination: first.destination || '-',
+                    current_status: first.rowstate_web || first.rowstate_name || '-',
+                    service: first.service_type_code || '-',
+                    weight: first.kilo || '-',
+                    koli: first.koli || '-',
+                    last_update: first.create_date || '-',
+                    shipper: first.shipper_name || '-',
+                    receiver: first.receiver_name || '-'
+                };
+            }
 
             if (data.status === 'success' && data.data && data.data.length > 0) {
                 renderSuccess(data);

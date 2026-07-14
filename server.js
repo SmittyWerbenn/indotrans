@@ -8,9 +8,9 @@ const app = express();
 
 // ── Config ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-const SAPX_BASE_URL = process.env.SAPX_BASE_URL || 'https://apisanbox.coresyssap.com';
-const SAPX_API_KEY = process.env.SAPX_API_KEY || 'DEV_m4rK3tPlac3#_2019';
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const SAPX_BASE_URL = process.env.SAPX_BASE_URL || 'https://api.coresyssap.com';
+const SAPX_API_KEY = process.env.SAPX_API_KEY || 'REDACTED';
+const NODE_ENV = process.env.NODE_ENV || 'production';
 
 // ── Middleware ───────────────────────────────────────────────────────────
 app.use(cors());

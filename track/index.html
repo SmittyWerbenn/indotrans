@@ -321,7 +321,7 @@
                 </div>
                 <div class="hint-row">
                     <i class="fas fa-info-circle"></i>
-                    <span>Contoh: <strong style="color:var(--gold);cursor:pointer" onclick="quickFill('test-001')">test-001</strong> atau <strong style="color:var(--gold);cursor:pointer" onclick="quickFill('DEV00205046460')">DEV00205046460</strong></span>
+                    <span>Contoh: <strong style="color:var(--gold);cursor:pointer" onclick="quickFill('CGK12345678')">CGK12345678</strong></span>
                 </div>
             </div>
 
@@ -335,14 +335,14 @@
         &copy; 2026 PT Indotrans Express Logistics — T'REX Logistics
     </footer>
 
-    <script src="config.js?v=2"></script>
+    <script src="config.js?v=3"></script>
     <script>
     // ── CONFIG ──────────────────────────────────────────────────────────
     const API_BASE = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.API_BASE)
         ? TRACKING_CONFIG.API_BASE
         : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? '/api'
-            : 'https://apisanbox.coresyssap.com/v2/shipment';
+            : 'https://api.coresyssap.com/v2/shipment';
     const API_KEY = (typeof TRACKING_CONFIG !== 'undefined' && TRACKING_CONFIG.API_KEY)
         ? TRACKING_CONFIG.API_KEY
         : null;

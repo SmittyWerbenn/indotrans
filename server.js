@@ -8,8 +8,8 @@ const app = express();
 
 // ── Config ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-const SAPX_BASE_URL = process.env.SAPX_BASE_URL || 'https://api.coresyssap.com';
-const SAPX_API_KEY = process.env.SAPX_API_KEY || 'REDACTED';
+const TREX_BASE_URL = process.env.TREX_BASE_URL || 'https://api.coresyssap.com';
+const TREX_API_KEY = process.env.TREX_API_KEY || 'REDACTED';
 const NODE_ENV = process.env.NODE_ENV || 'production';
 
 // ── Middleware ───────────────────────────────────────────────────────────
@@ -52,18 +52,18 @@ app.get('/api/track', async (req, res) => {
         });
     }
 
-    // Build SAPX query params
+    // Build tracking query params
     const params = new URLSearchParams();
     if (awb_no) params.append('awb_no', awb_no);
     if (reference_no) params.append('reference_no', reference_no);
 
-    const sapxUrl = `${SAPX_BASE_URL}/v2/shipment/tracking?${params.toString()}`;
+    const trexUrl = `${TREX_BASE_URL}/v2/shipment/tracking?${params.toString()}`;
 
     try {
-        const response = await fetch(sapxUrl, {
+        const response = await fetch(trexUrl, {
             method: 'GET',
             headers: {
-                'api_key': SAPX_API_KEY,
+                'api_key': TREX_API_KEY,
                 'Content-Type': 'application/json'
             },
             timeout: 15000
@@ -73,10 +73,10 @@ app.get('/api/track', async (req, res) => {
         const contentType = response.headers.get('content-type') || '';
         if (!contentType.includes('application/json')) {
             const text = await response.text();
-            console.error(`[SAPX] Non-JSON response (${response.status}):`, text.substring(0, 200));
+            console.error(`[TREX] Non-JSON response (${response.status}):`, text.substring(0, 200));
             return res.status(502).json({
                 status: 'fail',
-                message: 'Server SAPX mengembalikan response tidak valid. Coba lagi nanti.'
+                message: 'Server tracking mengembalikan response tidak valid. Coba lagi nanti.'
             });
         }
 
@@ -107,10 +107,10 @@ app.get('/api/track', async (req, res) => {
         return res.json(data);
 
     } catch (err) {
-        console.error('[SAPX] Fetch error:', err.message);
+        console.error('[TREX] Fetch error:', err.message);
         return res.status(502).json({
             status: 'fail',
-            message: 'Gagal terhubung ke server SAPX. Silakan coba lagi beberapa saat.'
+            message: 'Gagal terhubung ke server tracking. Silakan coba lagi beberapa saat.'
         });
     }
 });
@@ -121,7 +121,7 @@ app.get('/api/health', (req, res) => {
         status: 'ok',
         timestamp: new Date().toISOString(),
         env: NODE_ENV,
-        sapx_base_url: SAPX_BASE_URL.replace(/\/\/.*@/, '//***@')  // hide credentials
+        trex_base_url: TREX_BASE_URL.replace(/\/\/.*@/, '//***@')  // hide credentials
     });
 });
 
@@ -136,7 +136,7 @@ app.use((req, res) => {
 // ── Start Server ─────────────────────────────────────────────────────────
 app.listen(PORT, () => {
     console.log(`\n🚀 T'REX Tracking Server running on http://localhost:${PORT}`);
-    console.log(`📡 SAPX API: ${SAPX_BASE_URL}`);
+    console.log(`📡 API: ${TREX_BASE_URL}`);
     console.log(`🌍 Environment: ${NODE_ENV}`);
     console.log(`📍 Tracking page: http://localhost:${PORT}/track\n`);
 });

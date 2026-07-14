@@ -435,7 +435,7 @@
             const resp = await fetch(url, opts);
             const data = await resp.json();
 
-            // Normalize direct SAPX response (no summary field)
+            // Normalize direct API response (no summary field)
             if (DIRECT && data.status === 'success' && data.data && data.data.length > 0) {
                 data.data.reverse();
                 const first = data.data[0];

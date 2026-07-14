@@ -1,6 +1,6 @@
-# 🦖 T'REX Logistics — SAPX Shipment Tracking
+# 🦖 T'REX Logistics — Shipment Tracking
 
-Sistem pelacakan pengiriman real-time menggunakan SAPX API.
+Sistem pelacakan pengiriman real-time menggunakan API T'REX.
 
 ## 📁 Struktur Project
 
@@ -34,16 +34,16 @@ node server.js
 # Tracking page: http://localhost:3000/track
 ```
 
-Server akan berjalan di `http://localhost:3000` dan otomatis mem-proxy request ke SAPX API.
+Server akan berjalan di `http://localhost:3000` dan otomatis mem-proxy request ke API T'REX.
 
 ## 🔧 Konfigurasi .env
 
 Copy `.env.example` ke `.env` dan sesuaikan:
 
 ```env
-SAPX_BASE_URL=https://apisanbox.coresyssap.com   # Staging
-# SAPX_BASE_URL=https://api.coresyssap.com        # Production
-SAPX_API_KEY=DEV_m4rK3tPlac3#_2019
+TREX_BASE_URL=https://apisanbox.coresyssap.com   # Staging
+# TREX_BASE_URL=https://api.coresyssap.com         # Production
+TREX_API_KEY=DEV_m4rK3tPlac3#_2019
 PORT=3000
 ```
 
@@ -91,7 +91,7 @@ Copy `netlify.toml` ke root project, deploy ke Netlify. Fungsi serverless akan h
 Contoh nomor resi untuk testing (development server):
 
 - `DEV00205046460` — tracking development server
-- `test-001` — nomor kustom (jika sudah didaftarkan di SAPX)
+- `test-001` — nomor kustom (jika sudah didaftarkan di T'REX)
 
 ## 🔐 Keamanan
 

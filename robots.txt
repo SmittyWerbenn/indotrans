@@ -1,0 +1,8 @@
+# robots.txt — T'REX Logistics / indotrans.cloud
+# Allow semua crawler, arahkan ke sitemap
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://indotrans.cloud/sitemap.xml

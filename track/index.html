@@ -374,10 +374,38 @@
         /* ── SEO Content ───────────────────────────────────── */
         .seo-content {
             margin-top: 48px;
-            padding: 32px 24px;
-            background: rgba(255,255,255,0.03);
             border-radius: 16px;
             border: 1px solid var(--border-subtle);
+        }
+        .seo-content[open] {
+            padding: 32px 24px;
+            background: rgba(255,255,255,0.03);
+        }
+        .seo-content summary {
+            padding: 14px 20px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 16px;
+            user-select: none;
+            transition: color 0.2s;
+        }
+        .seo-content summary::-webkit-details-marker { display: none; }
+        .seo-content summary::marker { content: ''; display: none; }
+        .seo-content summary:hover { color: var(--gold); }
+        .seo-content[open] summary {
+            padding: 0 0 24px 0;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 0;
+            border-bottom: 1px solid var(--border-subtle);
         }
         .seo-content h2 {
             font-family: 'Playfair Display', serif;
@@ -488,8 +516,9 @@
             <!-- ── Results ── -->
             <div id="result"></div>
 
-            <!-- ── SEO Content ── -->
-            <div class="seo-content">
+            <!-- ── SEO Content (collapsed, readable by Google) ── -->
+            <details class="seo-content">
+                <summary><span>ℹ️ Informasi Layanan</span></summary>
                 <h2>Layanan Pelacakan Pengiriman T'REX Logistics</h2>
                 <p>T'REX Logistics — bagian dari <strong>PT Indotrans Express Logistics</strong> — menyediakan sistem <strong>pelacakan kiriman real-time</strong> untuk seluruh jaringan pengiriman kargo udara, laut, dan darat di Indonesia.</p>
                 <p>Cukup masukkan <strong>nomor resi (AWB)</strong> Anda untuk melihat status lengkap pengiriman — mulai dari pickup, transit, hingga delivered. Sistem kami terhubung langsung dengan database operasional sehingga informasi yang ditampilkan selalu <strong>akurat dan real-time</strong>.</p>
@@ -519,7 +548,7 @@
                 <h3>Tentang T'REX Logistics</h3>
                 <p>T'REX Logistics adalah layanan logistik terintegrasi dari <strong>PT Indotrans Express Logistics</strong>. Kami melayani pengiriman <strong>kargo udara</strong>, <strong>transportasi darat</strong>, dan <strong>kargo laut</strong> ke seluruh Indonesia. Dengan 25+ kantor cabang dan 150+ armada, kami berkomitmen memberikan layanan pengiriman yang cepat, aman, dan terpercaya.</p>
                 <p><a href="/">← Kembali ke halaman utama T'REX Logistics</a></p>
-            </div>
+            </details>
 
         </div>
     </div>

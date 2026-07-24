@@ -44,6 +44,63 @@
         }
     }
     </script>
+
+    <!-- Structured Data: FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Bagaimana cara melacak paket T'REX Logistics?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Masukkan nomor resi (AWB) yang Anda terima dari pengirim ke kolom lacak di halaman indotrans.cloud/track, lalu klik tombol LACAK. Status pengiriman akan muncul secara real-time."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Apa itu nomor AWB dan di mana saya bisa menemukannya?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "AWB (Air Waybill) adalah nomor resi pengiriman yang tertera pada bukti pengiriman / resi yang diberikan saat paket diserahkan ke T'REX Logistics."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Berapa lama paket sampai setelah dikirim via T'REX Logistics?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Estimasi pengiriman tergantung jarak dan layanan — kargo udara biasanya 1-3 hari, sedangkan darat dan laut lebih lama. Hubungi customer service di +62 812-9997-8937 untuk estimasi spesifik."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: Breadcrumb -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "T'REX Logistics",
+                "item": "https://indotrans.cloud/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Lacak Paket",
+                "item": "https://indotrans.cloud/track/"
+            }
+        ]
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="../favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -314,6 +371,69 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* ── SEO Content ───────────────────────────────────── */
+        .seo-content {
+            margin-top: 48px;
+            padding: 32px 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border: 1px solid var(--border-subtle);
+        }
+        .seo-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+        .seo-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        .seo-content h4 {
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+        .seo-content p, .seo-content li {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .seo-content ol {
+            padding-left: 20px;
+            color: var(--text-light);
+        }
+        .seo-content li {
+            margin-bottom: 6px;
+        }
+        .seo-content strong {
+            color: white;
+            font-weight: 600;
+        }
+        .seo-content a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        .seo-content a:hover {
+            text-decoration: underline;
+        }
+        .faq-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
         /* ── Footer ───────────────────────────────────────── */
         footer {
             padding: 20px; text-align: center;
@@ -367,6 +487,39 @@
 
             <!-- ── Results ── -->
             <div id="result"></div>
+
+            <!-- ── SEO Content ── -->
+            <div class="seo-content">
+                <h2>Layanan Pelacakan Pengiriman T'REX Logistics</h2>
+                <p>T'REX Logistics — bagian dari <strong>PT Indotrans Express Logistics</strong> — menyediakan sistem <strong>pelacakan kiriman real-time</strong> untuk seluruh jaringan pengiriman kargo udara, laut, dan darat di Indonesia.</p>
+                <p>Cukup masukkan <strong>nomor resi (AWB)</strong> Anda untuk melihat status lengkap pengiriman — mulai dari pickup, transit, hingga delivered. Sistem kami terhubung langsung dengan database operasional sehingga informasi yang ditampilkan selalu <strong>akurat dan real-time</strong>.</p>
+
+                <h3>Cara Melacak Pengiriman</h3>
+                <ol>
+                    <li>Masukkan <strong>nomor resi / AWB</strong> pada kolom di atas</li>
+                    <li>Klik tombol <strong>LACAK</strong></li>
+                    <li>Lihat <strong>status terkini</strong>, ringkasan pengiriman, dan riwayat perjalanan paket Anda</li>
+                    <li>Lacak ulang kapan saja — data selalu <strong>real-time</strong></li>
+                </ol>
+
+                <h3>Pertanyaan Umum</h3>
+                <div class="faq-item">
+                    <h4>Bagaimana cara melacak paket T'REX Logistics?</h4>
+                    <p>Masukkan nomor resi (AWB) yang Anda terima dari pengirim ke kolom lacak di halaman ini, lalu klik tombol LACAK. Status pengiriman akan muncul secara real-time.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Apa itu nomor AWB dan di mana saya bisa menemukannya?</h4>
+                    <p>AWB (Air Waybill) adalah nomor resi pengiriman. Nomor ini tertera pada bukti pengiriman / resi yang diberikan saat paket diserahkan ke T'REX Logistics.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Berapa lama paket sampai setelah dikirim?</h4>
+                    <p>Estimasi pengiriman tergantung jarak dan layanan yang dipilih — kargo udara biasanya 1-3 hari, sedangkan pengiriman darat dan laut membutuhkan waktu lebih lama. Hubungi layanan pelanggan kami di +62 812-9997-8937 untuk estimasi spesifik.</p>
+                </div>
+
+                <h3>Tentang T'REX Logistics</h3>
+                <p>T'REX Logistics adalah layanan logistik terintegrasi dari <strong>PT Indotrans Express Logistics</strong>. Kami melayani pengiriman <strong>kargo udara</strong>, <strong>transportasi darat</strong>, dan <strong>kargo laut</strong> ke seluruh Indonesia. Dengan 25+ kantor cabang dan 150+ armada, kami berkomitmen memberikan layanan pengiriman yang cepat, aman, dan terpercaya.</p>
+                <p><a href="/">← Kembali ke halaman utama T'REX Logistics</a></p>
+            </div>
 
         </div>
     </div>

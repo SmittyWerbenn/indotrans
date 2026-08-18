@@ -1,0 +1,12 @@
+Contact: mailto:security@indotrans.cloud
+Contact: https://wa.me/6281299978937
+Expires: 2027-12-31T23:59:59z
+Preferred-Languages: id, en
+Canonical: https://indotrans.cloud/.well-known/security.txt
+
+# Jika menemukan celah keamanan, mohon laporkan ke:
+# - security@indotrans.cloud (email utama)
+# - WA +62 812-9997-8937 (urgent)
+#
+# Mohon jangan exploit celah, jangan publish sebelum patch rilis.
+# Kami akan respond dalam 7 hari kerja.

@@ -1,7 +1,7 @@
 // ============================================================
 // Cloudflare Worker — Proxy untuk API Tracking T'REX
 // Deploy di: Cloudflare Dashboard > Workers & Pages > Create
-// 
+//
 // Set API_KEY di tab "Settings" > "Variables" (Environment Variable)
 // JANGAN hardcode di sini.
 // ============================================================
@@ -16,8 +16,18 @@ const UPSTREAM_API = 'https://api.coresyssap.com/v2/shipment';
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin');
+
+    // CORS strict: kalau origin tidak diizinkan, blok.
+    // Catatan: server-to-server (tanpa Origin header) tetap jalan.
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+      return new Response(JSON.stringify({ error: 'Origin not allowed' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const corsHeaders = {
-      'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : 'https://indotrans.cloud',
+      'Access-Control-Allow-Origin': origin || 'https://indotrans.cloud',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',

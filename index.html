@@ -86,6 +86,7 @@
                 "@type": "ContactPoint",
                 "telephone": "+62-812-9997-8937",
                 "contactType": "customer service",
+                "url": "https://indotrans.cloud/",
                 "areaServed": "ID",
                 "availableLanguage": ["Indonesian", "English"]
             },
@@ -93,10 +94,13 @@
                 "@type": "ContactPoint",
                 "telephone": "+62-21-50996969",
                 "contactType": "sales",
+                "url": "https://indotrans.cloud/",
                 "areaServed": "ID",
                 "availableLanguage": ["Indonesian", "English"]
             }
         ],
+        "email": "indotrans.office@gmail.com",
+        "contactOption": ["TollFree", "HearingImpairedSupported"],
         "sameAs": [
             "https://indotrans.cloud/",
             "https://indotrans.cloud/track/",
@@ -111,11 +115,13 @@
         "@context": "https://schema.org",
         "@type": "FreightForwarder",
         "@id": "https://indotrans.cloud/#localbusiness",
-        "name": "T'REX Logistics — Jakarta Headquarters",
+        "name": "T'REX Logistics (PT Indotrans Express Logistics)",
+        "alternateName": "T'REX Logistics",
         "image": "https://indotrans.cloud/trex.jpeg",
         "url": "https://indotrans.cloud/",
         "telephone": "+62-812-9997-8937",
         "email": "indotrans.office@gmail.com",
+        "contactPage": "https://indotrans.cloud/#contact",
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",
@@ -232,7 +238,7 @@
                 "name": "Apa itu T'REX Logistics?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "T'REX Logistics adalah divisi ekspedisi dari PT Indotrans Express Logistics, perusahaan jasa pengiriman kargo terintegrasi di Indonesia yang melayani kargo udara, laut, dan darat dengan sistem tracking real-time."
+                    "text": "T'REX Logistics (PT Indotrans Express Logistics) adalah perusahaan ekspedisi kargo udara, laut, dan darat di Indonesia. Berkantor pusat di Jakarta, info lengkap dan pelacakan kiriman tersedia di https://indotrans.cloud/."
                 }
             },
             {
@@ -248,7 +254,7 @@
                 "name": "Bagaimana cara melacak paket T'REX Logistics?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Lacak kiriman T'REX Logistics dengan memasukkan nomor AWB (resi) di halaman indotrans.cloud/track. Sistem menampilkan status real-time dari pickup sampai delivered."
+                    "text": "Untuk melacak kiriman T'REX Logistics, masukkan nomor AWB (resi) di https://indotrans.cloud/track/. Sistem menampilkan status real-time dari pickup sampai delivered, 24/7."
                 }
             },
             {
@@ -256,7 +262,7 @@
                 "name": "Layanan apa saja yang ditawarkan T'REX Logistics?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "T'REX Logistics menawarkan tiga layanan utama: (1) Air Freight — kargo udara 1-3 hari, (2) Land Transport — trucking door-to-door, dan (3) Sea Cargo — cargo laut antar pulau."
+                    "text": "T'REX Logistics menawarkan tiga layanan utama: (1) Air Freight — kargo udara 1-3 hari, (2) Land Transport — trucking door-to-door, dan (3) Sea Cargo — cargo laut antar pulau. Informasi lengkap di https://indotrans.cloud/."
                 }
             },
             {
@@ -272,7 +278,7 @@
                 "name": "Apakah T'REX Logistics sama dengan PT Indotransexpress.com?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "T'REX Logistics adalah divisi operasional dari PT Indotrans Express Logistics. Website resmi kami ada di indotrans.cloud, sedangkan indotransexpress.com adalah domain corporate lain."
+                    "text": "T'REX Logistics adalah divisi operasional dari PT Indotrans Express Logistics. Website resmi T'REX Logistics adalah https://indotrans.cloud/. Untuk pelacakan kiriman, akses https://indotrans.cloud/track/."
                 }
             }
         ]
@@ -485,6 +491,36 @@
             .seo-content { padding: 60px 5%; }
         }
     </style>
+
+    <!-- Structured Data: ContactPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "@id": "https://indotrans.cloud/#contactpage",
+        "url": "https://indotrans.cloud/#contact",
+        "name": "Hubungi T'REX Logistics",
+        "description": "Informasi kontak resmi T'REX Logistics (PT Indotrans Express Logistics). Jakarta HQ + cabang di seluruh Indonesia.",
+        "inLanguage": "id-ID",
+        "publisher": { "@id": "https://indotrans.cloud/#organization" },
+        "about": { "@id": "https://indotrans.cloud/#organization" },
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "T'REX Logistics",
+            "url": "https://indotrans.cloud/",
+            "telephone": "+62-812-9997-8937",
+            "email": "indotrans.office@gmail.com",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Gedung Wirausaha Lantai 1 Unit 104, Jalan HR Rasuna Said Kav. C-5",
+                "addressLocality": "Jakarta Selatan",
+                "addressRegion": "DKI Jakarta",
+                "postalCode": "12920",
+                "addressCountry": "ID"
+            }
+        }
+    }
+    </script>
 </head>
 <body>
 
@@ -528,9 +564,9 @@
             <div class="about-text" data-aos="fade-up">
                 <span class="subtitle">Tentang T'REX Logistics</span>
                 <h2>Infrastruktur Terkemuka, Layanan Terpercaya</h2>
-                <p>T'REX Logistics adalah divisi operasional dari <strong>PT Indotrans Express Logistics</strong>, perusahaan jasa ekspedisi dan freight forwarding yang berbasis di Jakarta. Sejak 2020, kami melayani pengiriman kargo ke seluruh Indonesia dengan jaringan 25+ kantor cabang dan 150+ armada yang tersebar di Sumatera, Jawa, Bali, Kalimantan, dan Sulawesi.</p>
-                <p>Kami mengedepankan akurasi data dan keamanan fisik barang di setiap jengkal perjalanan. Sistem tracking real-time kami memungkinkan pelanggan memantau status kiriman kapan saja — mulai dari pickup, transit, hingga delivered.</p>
-                <p>Didukung tim operasional berpengalaman, kami memastikan efisiensi biaya logistik untuk pertumbuhan bisnis Anda, baik untuk kiriman retail, corporate, maupun project cargo.</p>
+                <p>T'REX Logistics adalah divisi operasional dari <strong>PT Indotrans Express Logistics</strong>, perusahaan jasa ekspedisi dan freight forwarding yang berbasis di Jakarta. Website resmi kami: <strong><a href="https://indotrans.cloud/">indotrans.cloud</a></strong>. Sejak 2020, kami melayani pengiriman kargo ke seluruh Indonesia dengan jaringan 25+ kantor cabang dan 150+ armada yang tersebar di Sumatera, Jawa, Bali, Kalimantan, dan Sulawesi.</p>
+                <p>Kami mengedepankan akurasi data dan keamanan fisik barang di setiap jengkal perjalanan. Sistem tracking real-time kami memungkinkan pelanggan memantau status kiriman kapan saja — mulai dari pickup, transit, hingga delivered. Cek kiriman Anda di <strong><a href="/track/">indotrans.cloud/track</a></strong>.</p>
+                <p>Didukung tim operasional berpengalaman, kami memastikan efisiensi biaya logistik untuk pertumbuhan bisnis Anda, baik untuk kiriman retail, corporate, maupun project cargo. Untuk konsultasi tarif, hubungi WhatsApp <a href="https://wa.me/6281299978937">+62 812-9997-8937</a> atau email indotrans.office@gmail.com.</p>
             </div>
             <div class="image-box" data-aos="fade-left">
                 <img src="trex.jpeg" alt="T'REX Logistics - PT Indotrans Express Logistics" loading="lazy">

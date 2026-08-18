@@ -1,14 +1,19 @@
 /**
  * T'REX Tracking — Backend URL Configuration
  * 
- * Production: panggil API tracking langsung.
+ * Sekarang pakai Cloudflare Worker sebagai proxy.
+ * API key TIDAK ADA di sini — aman di server Cloudflare.
  * 
- * Untuk development lokal:
- *   API_BASE: '/api'
+ * Untuk development lokal (jalankan server.js):
+ *   API_BASE: '/api', DIRECT: false
+ * 
+ * Untuk production (pakai Worker):
+ *   API_BASE: 'https://indotrans-tracking-proxy.<SUBDOMAIN>.workers.dev'
+ *   DIRECT: true
  */
 const TRACKING_CONFIG = {
-    // ── Langsung ke API production ──
-    API_BASE: 'https://api.coresyssap.com/v2/shipment',
-    API_KEY: 'REDACTED',
-    DIRECT: true  // true = panggil API langsung, false = lewat proxy backend
+    // ── Ganti <SUBDOMAIN> setelah deploy worker (lihat PANDUAN-DEPLOY.md) ──
+    API_BASE: 'https://indotrans-tracking-proxy.smitty.workers.dev',
+    API_KEY: null,   // <-- tidak ada key di frontend, sudah aman
+    DIRECT: true     // true = panggil proxy, false = lewat server.js
 };

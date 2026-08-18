@@ -648,17 +648,16 @@
             </div>`;
 
         try {
-            const url = DIRECT
-                ? `${API_BASE}/tracking?awb_no=${encodeURIComponent(resi)}`
-                : `${API_BASE}/track?awb_no=${encodeURIComponent(resi)}`;
-            const opts = DIRECT
-                ? { headers: { 'api_key': API_KEY } }
-                : {};
+            // Panggil Cloudflare Worker proxy — key sudah di-inject di server
+            // Worker endpoint: GET ?awb=XXX
+            const url = `${API_BASE}?awb=${encodeURIComponent(resi)}`;
+            const opts = {};
             const resp = await fetch(url, opts);
             const data = await resp.json();
 
             // Normalize direct API response (no summary field)
-            if (DIRECT && data.status === 'success' && data.data && data.data.length > 0) {
+            // Worker proxy sudah include summary (sama seperti server.js)
+            if (!data.summary && data.status === 'success' && data.data && data.data.length > 0) {
                 data.data.reverse();
                 const first = data.data[0];
                 data.summary = {

@@ -9,8 +9,15 @@ const app = express();
 // ── Config ──────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
 const TREX_BASE_URL = process.env.TREX_BASE_URL || 'https://api.coresyssap.com';
-const TREX_API_KEY = process.env.TREX_API_KEY || 'REDACTED';
+const TREX_API_KEY = process.env.TREX_API_KEY;
 const NODE_ENV = process.env.NODE_ENV || 'production';
+
+// Fail fast kalau API key tidak ada
+if (!TREX_API_KEY) {
+    console.error('\n❌ FATAL: TREX_API_KEY tidak ditemukan.');
+    console.error('   Set variable TREX_API_KEY di .env file atau environment.\n');
+    process.exit(1);
+}
 
 // ── Middleware ───────────────────────────────────────────────────────────
 app.use(cors());
